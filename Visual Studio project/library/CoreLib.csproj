@@ -43,11 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Object\Car.cs" />
+    <Compile Include="Object\CarModel.cs" />
     <Compile Include="Class\Exception.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="Object\Region.cs" />
+    <Compile Include="Object\ServiceType.cs" />
+    <Compile Include="Object\Gas.cs" />
+    <Compile Include="Object\Service.cs" />
     <Compile Include="Class\Response.cs" />
     <Compile Include="DAO\UserDAO.cs" />
-    <Compile Include="Class\User.cs" />
+    <Compile Include="Object\User.cs" />
     <Compile Include="CoreApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

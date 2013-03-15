@@ -9,10 +9,10 @@ using CarExpensesTools;
 
 namespace CarExpenses
 {
-    public class CoreApp
+    public class CarExpensesApp
     {
         public User user;
-        private static CoreApp instance;
+        private static CarExpensesApp instance;
         private OracleConnection connection;
 
         private UserDAO userDAO;
@@ -22,14 +22,14 @@ namespace CarExpenses
             + "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=students)));"
             + "User Id=zikmundj;Password=A12N0103P;";
         
-        private CoreApp()
+        private CarExpensesApp()
         {
             user = null;
             connection = null;
             userDAO = new UserDAO(getConnection());
         }
 
-        ~CoreApp()
+        ~CarExpensesApp()
         {
             if (connection != null)
             {
@@ -49,13 +49,13 @@ namespace CarExpenses
             }
         }
 
-        public static CoreApp init
+        public static CarExpensesApp init
         {
             get 
             {
                 if (instance == null)
                 {
-                    instance = new CoreApp();
+                    instance = new CarExpensesApp();
                 }
                 return instance;
             }
@@ -107,5 +107,44 @@ namespace CarExpenses
             return response;
         }
 
+        public bool logout()
+        {
+            user = null;
+            return true;
+        }
+
+        public Response register(string login, string password, string email, int bornYear, int regionId)
+        {
+            Response response = new Response(false, "Registration failed.");
+
+            if (bornYear < (DateTime.Today.Year-130) || bornYear > DateTime.Today.Year)
+            {
+                response.message = "Born year must be between " + (DateTime.Today.Year - 130) + " and " + DateTime.Today.Year + ".";
+                response.success = true;
+                return response;
+            }
+            
+            try
+            {
+                User user = new User();
+                user.login = login;
+                user.password = password;
+                user.email = email;
+                user.bornYear = bornYear;
+                user.regionId = regionId;
+
+                if (userDAO.register(user) == true)
+                {
+                    response.message = "User " + user.login + " was successfuly registered.";
+                    response.success = true;
+                }
+            }
+            catch (CarExpensesDatabaseException ex)
+            {
+                response.success = false;
+                response.message = ex.Message.ToString();
+            }
+            return response;
+        }
     }
 }

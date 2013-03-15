@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarExpensesTools
+namespace CarExpenses
 {
     public class User
     {
         public int id { get; set; }
         public String login { get; set; }
+        public String password { get; set; }
         public String email { get; set; }
         public int bornYear { get; set; }
         public int regionId { get; set; }
