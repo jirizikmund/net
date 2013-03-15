@@ -7,7 +7,8 @@ CREATE TABLE "users"
 	"password" VARCHAR2(32 CHAR) NOT NULL ENABLE, 
 	"region_id" NUMBER NOT NULL ENABLE, 
 	"born_year" NUMBER, 
-	 CONSTRAINT "users_pk" PRIMARY KEY ("id")
+	 CONSTRAINT "users_pk" PRIMARY KEY ("id"),
+	 CONSTRAINT "users_login_uk" UNIQUE ("login")
 );
 
 CREATE SEQUENCE "users_id_seq" INCREMENT BY 1 START WITH 1 nomaxvalue;
