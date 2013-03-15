@@ -18,15 +18,15 @@ namespace CarExpensesTools
         {
             User user = null;
 
-            using (OracleCommand cmd = new OracleCommand())
+            using (OracleCommand cmdSelect = new OracleCommand())
             {
                 try
                 {
-                    cmd.Connection = connection;
-                    cmd.CommandText = "SELECT * FROM \"users\" WHERE \"login\" = '" + login + "' AND \"password\" = '" + password + "'";
-                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmdSelect.Connection = connection;
+                    cmdSelect.CommandText = "SELECT * FROM \"users\" WHERE \"login\" = '" + login + "' AND \"password\" = '" + password + "'";
+                    cmdSelect.CommandType = System.Data.CommandType.Text;
 
-                    using (OracleDataReader dr = cmd.ExecuteReader())
+                    using (OracleDataReader dr = cmdSelect.ExecuteReader())
                     {
                         if (dr.HasRows)
                         {
@@ -70,14 +70,13 @@ namespace CarExpensesTools
 
         public bool register(User user)
         {
-            using (OracleCommand cmd = new OracleCommand())
+            using (OracleCommand cmdInsert = new OracleCommand())
             {
                 try
                 {
                     string sqlInsert = "INSERT INTO \"users\" (\"login\", \"email\", \"password\", \"region_id\", \"born_year\") ";
                     sqlInsert += "values (:p_login, :p_email, :p_password, :p_region_id, :p_born_year)";
 
-                    OracleCommand cmdInsert = new OracleCommand();
                     cmdInsert.CommandText = sqlInsert;
                     cmdInsert.Connection = connection;
 

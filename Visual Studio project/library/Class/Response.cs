@@ -10,15 +10,25 @@ namespace CarExpenses
     {
         public bool success;
         public String message;
-        public int code;
-        public Object obj;
 
-        public Response(bool success, String message = "", int code = 0, Object obj = null)
+        public Response(bool success = false, String message = "")
         {
             this.success = success;
             this.message = message;
-            this.code = code;
-            this.obj = obj;
+        }
+    }
+
+    public struct CarResponse
+    {
+        public bool success;
+        public String message;
+        public List<Car> carList;
+
+        public CarResponse(bool success = false, String message = "", List<Car> carList = null)
+        {
+            this.success = success;
+            this.message = message;
+            this.carList = carList;
         }
     }
 }

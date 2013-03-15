@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\CarDAO.cs" />
     <Compile Include="Object\Car.cs" />
     <Compile Include="Object\CarModel.cs" />
     <Compile Include="Class\Exception.cs" />

@@ -28,6 +28,7 @@ namespace CarExpensesConsole
             "****************************************************************\n";
 
         static CarExpensesApp application = null;
+        List<Car> carList = null;
 
         static void Main(string[] args)
         {
@@ -45,7 +46,7 @@ namespace CarExpensesConsole
                 }
                 started = true;
                 
-                switch( menu( new string[] {"Login","Register","Exit"} ) ) 
+                switch( menu( new string[] {"Login","Register","Exit","Select car"} ) ) 
                 {
                     case 1: // Login
                         if (login())
@@ -58,6 +59,10 @@ namespace CarExpensesConsole
                     case 3: // Exit
                         exit(0);
                         break;
+                    case 4: // Exit
+                        showCars();
+                        goto Start;
+                        break;
                 }
             
             MainMenu:
@@ -66,7 +71,7 @@ namespace CarExpensesConsole
                 switch ( menu(new string[] { "Select car", "Add new car", "Remove car", "Logout", "Exit" }) )
                 {
                     case 1: // Select car
-                        
+                        showCars();
                         goto MainMenu;
                     case 2: // Add new car
 
@@ -137,7 +142,7 @@ namespace CarExpensesConsole
             int bornYear;
             while ( int.TryParse(Console.ReadLine(), out bornYear) == false)
             {
-                Console.WriteLine(" must be a number!");
+                Console.WriteLine("--Born year must be a number!");
                 Console.Write("New born year: ");
             }
 
@@ -145,7 +150,7 @@ namespace CarExpensesConsole
             int regionId;
             while (int.TryParse(Console.ReadLine(), out regionId) == false)
             {
-                Console.WriteLine(" must be a number!");
+                Console.WriteLine("--Region ID must be a number!");
                 Console.Write("New region ID: ");
             }
 
@@ -156,6 +161,56 @@ namespace CarExpensesConsole
             keyToContinue();
 
             return response.success;
+        }
+
+        static bool addCar()
+        {
+            Console.Write("New car model ID: ");
+            int carModelId;
+            while (int.TryParse(Console.ReadLine(), out carModelId) == false)
+            {
+                Console.WriteLine("--Car model ID must be a number!");
+                Console.Write("New car model ID: ");
+            }
+
+            Console.Write("New bought year: ");
+            int boughtYear;
+            while (int.TryParse(Console.ReadLine(), out boughtYear) == false)
+            {
+                Console.WriteLine("--Bought year must be a number!");
+                Console.Write("New bought year: ");
+            }
+
+            Console.Write("New cost: ");
+            int cost;
+            while (int.TryParse(Console.ReadLine(), out cost) == false)
+            {
+                Console.WriteLine("--Cost must be a number!");
+                Console.Write("New cost: ");
+            }
+
+            Console.Write("Adding new car... ");
+            Response response = application.addCar(carModelId,boughtYear,cost);
+            Console.WriteLine(response.message);
+
+            keyToContinue();
+
+            return response.success;
+        }
+
+        static void showCars()
+        {
+            CarResponse response = application.getUserCars();
+            Console.WriteLine(response.message);
+            if (response.success && response.carList != null)
+            {
+                foreach (Car car in response.carList)
+                {
+                    Console.WriteLine(car.toString());
+                    Console.WriteLine(car.ToString());
+                }
+            }
+            keyToContinue();
         }
 
         static string readPassword()

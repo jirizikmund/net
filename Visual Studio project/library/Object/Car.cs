@@ -21,5 +21,10 @@ namespace CarExpenses
             boughtYear = 0;
             cost = 0;
         }
+
+        public string toString()
+        {
+            return "[" + id + "] model " + carModelId + ", bought " + boughtYear + ", cost " + cost; 
+        }
     }
 }
