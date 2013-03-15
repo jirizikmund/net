@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "consoleApp\ConsoleApp.csproj", "{AD981E75-96A4-4E33-89A1-08AC10A565B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLib", "library\CoreLib.csproj", "{46445A88-CF1E-4ACE-AAF9-B5B18ED56862}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD981E75-96A4-4E33-89A1-08AC10A565B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD981E75-96A4-4E33-89A1-08AC10A565B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD981E75-96A4-4E33-89A1-08AC10A565B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD981E75-96A4-4E33-89A1-08AC10A565B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46445A88-CF1E-4ACE-AAF9-B5B18ED56862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46445A88-CF1E-4ACE-AAF9-B5B18ED56862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46445A88-CF1E-4ACE-AAF9-B5B18ED56862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46445A88-CF1E-4ACE-AAF9-B5B18ED56862}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
