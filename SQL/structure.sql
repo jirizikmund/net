@@ -6,7 +6,8 @@ CREATE TABLE "users"
 	"email" VARCHAR2(256 CHAR), 
 	"password" VARCHAR2(32 CHAR) NOT NULL ENABLE, 
 	"region_id" NUMBER NOT NULL ENABLE, 
-	"born_year" NUMBER, 
+	"born_year" NUMBER,
+	"timestamp" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	 CONSTRAINT "users_pk" PRIMARY KEY ("id"),
 	 CONSTRAINT "users_login_uk" UNIQUE ("login")
 );
@@ -21,6 +22,8 @@ BEGIN
 END;
 /
 ALTER TRIGGER "users_id_autoincrement" ENABLE;
+-----------------------------------------------------------------------------
+
 
 -------- REGION -------------------------------------------------------
 
@@ -29,15 +32,19 @@ CREATE TABLE "region"
 	"name" VARCHAR2(64 CHAR),
 	 CONSTRAINT "region_pk" PRIMARY KEY ("id")
 );
+-----------------------------------------------------------------------------
+
 
 -------- CAR ----------------------------------------------------------
 
 CREATE TABLE "car"
 (	"id" NUMBER NOT NULL ENABLE, 
 	"user_id" NUMBER NOT NULL ENABLE,
-	"car_model_id" NUMBER NOT NULL ENABLE,
+	"car_model_id" NUMBER DEFAULT 0 NOT NULL ENABLE,
+	"name" VARCHAR2(64 CHAR),
 	"cost" NUMBER,
 	"bought_year" NUMBER,
+	"timestamp" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	 CONSTRAINT "car_pk" PRIMARY KEY ("id")
 );
 
@@ -51,6 +58,8 @@ BEGIN
 END;
 /
 ALTER TRIGGER "car_id_autoincrement" ENABLE;
+-----------------------------------------------------------------------------
+
 
 ---------- CAR_MODEL ---------------------------------------------------
 
@@ -63,6 +72,8 @@ CREATE TABLE "car_model"
 	"mililiters_per_100" NUMBER,
 	 CONSTRAINT "car_model_pk" PRIMARY KEY ("id")
 );
+-----------------------------------------------------------------------------
+
 
 ------------ GAS -----------------------------------------------------------
 
@@ -73,7 +84,7 @@ CREATE TABLE "gas"
 	"mililiters" NUMBER,
 	"cost" NUMBER,
 	"date" DATE,
-	"timestamp" TIMESTAMP, 
+	"timestamp" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
 	 CONSTRAINT "gas_pk" PRIMARY KEY ("id")
 );
 
@@ -87,6 +98,7 @@ BEGIN
 END;
 /
 ALTER TRIGGER "gas_id_autoincrement" ENABLE;
+-----------------------------------------------------------------------------
 
 
 ------------ SERVICE -----------------------------------------------------------
@@ -94,12 +106,12 @@ ALTER TRIGGER "gas_id_autoincrement" ENABLE;
 CREATE TABLE "service"
 (	"id" NUMBER NOT NULL ENABLE,
 	"car_id" NUMBER NOT NULL ENABLE,
-	"service_type_id" NUMBER NOT NULL ENABLE,
+	"service_type_id" NUMBER DEFAULT 0 NOT NULL ENABLE,
 	"km" NUMBER,
 	"cost" NUMBER,
 	"date" DATE,
 	"description" VARCHAR2(1024 CHAR),
-	"timestamp" TIMESTAMP, 
+	"timestamp" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
 	 CONSTRAINT "service_pk" PRIMARY KEY ("id")
 );
 
@@ -113,6 +125,8 @@ BEGIN
 END;
 /
 ALTER TRIGGER "gas_id_autoincrement" ENABLE;
+-----------------------------------------------------------------------------
+
 
 -------- SERVICE_TYPE -------------------------------------------------------
 
@@ -122,9 +136,11 @@ CREATE TABLE "service_type"
 	 CONSTRAINT "service_type_pk" PRIMARY KEY ("id")
 );
 -----------------------------------------------------------------------------
+
+
 ------- FOREGIN KEYS -------------
 alter table "users" add constraint users_region_fk foreign key("region_id") references "region"("id");
-alter table "car" add constraint car_users_fk foreign key("user_id") references "user"("id");
+alter table "car" add constraint car_users_fk foreign key("user_id") references "users"("id");
 alter table "car" add constraint car_car_model_fk foreign key("car_model_id") references "car_model"("id");
 alter table "gas" add constraint gas_car_fk foreign key("car_id") references "car"("id");
 alter table "service" add constraint service_car_fk foreign key("car_id") references "car"("id");

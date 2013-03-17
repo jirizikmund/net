@@ -1,3 +1,4 @@
+INSERT INTO "region" ("id", "name") values (0,'Other');
 INSERT INTO "region" ("id", "name") values (1,'Støedoèeský kraj');
 INSERT INTO "region" ("id", "name") values (2,'Plzeòksý kraj');
 INSERT INTO "region" ("id", "name") values (3,'Ústecký kraj');
@@ -5,6 +6,8 @@ INSERT INTO "region" ("id", "name") values (4,'Karlovarský kraj');
 INSERT INTO "region" ("id", "name") values (5,'Jihoèeský kraj');
 INSERT INTO "region" ("id", "name") values (6,'Moravský kraj');
 
+INSERT INTO "car_model" ("id", "manufacturer", "type", "engine", "year","mililiters_per_100")
+  values (0,'Other','car','',0,0);
 INSERT INTO "car_model" ("id", "manufacturer", "type", "engine", "year","mililiters_per_100")
   values (1,'Ford','Focus','1.6 MPI',2005,8000);
 INSERT INTO "car_model" ("id", "manufacturer", "type", "engine", "year","mililiters_per_100")
