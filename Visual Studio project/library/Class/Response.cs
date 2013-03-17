@@ -31,4 +31,46 @@ namespace CarExpenses
             this.carList = carList;
         }
     }
+
+    public struct UserResponse
+    {
+        public bool success;
+        public String message;
+        public User user;
+
+        public UserResponse(bool success = false, String message = "", User user = null)
+        {
+            this.success = success;
+            this.message = message;
+            this.user = user;
+        }
+    }
+
+    public struct GasResponse
+    {
+        public bool success;
+        public String message;
+        public List<Gas> gasList;
+
+        public GasResponse(bool success = false, String message = "", List<Gas> gasList = null)
+        {
+            this.success = success;
+            this.message = message;
+            this.gasList = gasList;
+        }
+    }
+
+    public struct ServiceResponse
+    {
+        public bool success;
+        public String message;
+        public List<Service> serviceList;
+
+        public ServiceResponse(bool success = false, String message = "", List<Service> serviceList = null)
+        {
+            this.success = success;
+            this.message = message;
+            this.serviceList = serviceList;
+        }
+    }
 }

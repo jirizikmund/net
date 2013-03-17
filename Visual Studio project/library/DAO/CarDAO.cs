@@ -9,11 +9,24 @@ using CarExpenses;
 
 namespace CarExpensesTools
 {
+    // <summary>
+    // Datový model epracující s autama v databázi
+    // </summary>
     class CarDAO : BaseDAO
     {
+        // <summary>
+        // Konstruktor datového modelu.
+        // </summary>
+        // <param name="connection">Instance připojení k databázi</param>
         public CarDAO(OracleConnection connection) : base(connection)
         { }
 
+        // <summary>
+        // Získává všechny auta patřící uživateli specifikovaného parametrem <paramref name="userId">userId</paramref>
+        // </summary>
+        // <param name="userId">ID uživatele</param>
+        // <returns>Seznam aut daného uživatele</returns>
+        // <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public List<Car> getUserCars(int userId)
         {
             List<Car> carList = new List<Car>();
@@ -45,6 +58,7 @@ namespace CarExpensesTools
                                 car.carModelId = Convert.ToInt32(dr["car_model_id"].ToString());
                                 car.boughtYear = Convert.ToInt32(dr["bought_year"].ToString());
                                 car.cost = Convert.ToInt32(dr["cost"].ToString());
+                                car.name = dr["name"].ToString();
                                 carList.Add(car);
                             }
                         }
@@ -73,15 +87,22 @@ namespace CarExpensesTools
             }
         }
 
-
+        // <summary>
+        // Vkládá do databáze nové auto.
+        // Vše je potřebné se nachází v objektu auta (parametr <paramref name="userId">userId</paramref>),
+        // včetné ID uživatele, ke kterému se vztahuje.
+        // </summary>
+        // <param name="car">Nové auto pro vložení do databáze</param>
+        // <returns>Úspěch vložení</returns>
+        // <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public bool addCar(Car car)
         {
             using (OracleCommand cmdInsert = new OracleCommand())
             {
                 try
                 {
-                    string sqlInsert = "INSERT INTO \"car\" (\"user_id\", \"car_model_id\", \"bought_year\", \"cost\") ";
-                    sqlInsert += "values (:p_user_id, :p_car_model_id, :p_bought_year, :p_cost)";
+                    string sqlInsert = "INSERT INTO \"car\" (\"user_id\", \"car_model_id\", \"bought_year\", \"cost\", \"name\") ";
+                    sqlInsert += "values (:p_user_id, :p_car_model_id, :p_bought_year, :p_cost, :p_name)";
 
                     cmdInsert.CommandText = sqlInsert;
                     cmdInsert.Connection = connection;
@@ -106,10 +127,15 @@ namespace CarExpensesTools
                     pCost.Value = car.cost;
                     pCost.ParameterName = "p_cost";
 
+                    OracleParameter pName = new OracleParameter();
+                    pName.Value = car.name;
+                    pName.ParameterName = "p_name";
+
                     cmdInsert.Parameters.Add(pUserId);
                     cmdInsert.Parameters.Add(pCarModelId);
                     cmdInsert.Parameters.Add(pBoughtYear);
                     cmdInsert.Parameters.Add(pCost);
+                    cmdInsert.Parameters.Add(pName);
 
                     if ( cmdInsert.ExecuteNonQuery() > 0 )
                     {
@@ -125,6 +151,66 @@ namespace CarExpensesTools
                             throw new CarExpensesDatabaseException("Car ID " + car.id + " already exists.");
                         case 2291:
                             throw new CarExpensesDatabaseException("Car Model ID " + car.carModelId + " doesn't exist.");
+                        case 12545:
+                            throw new CarExpensesDatabaseException("The database is unavailable.");
+                        default:
+                            throw new CarExpensesDatabaseException("Database error: " + ex.Message.ToString());
+                    }
+                }
+                catch (CarExpensesDatabaseException ex)
+                {
+                    throw new CarExpensesDatabaseException(ex.Message.ToString());
+                }
+                catch (Exception ex)
+                {
+                    throw new CarExpensesDatabaseException("Unexpected error: " + ex.Message.ToString());
+                }
+            }
+        }
+
+        // <summary>
+        // Zjišťuje, zda uživatel s ID <paramref name="userId">userId</paramref>
+        // je vlastníkem auta s ID <paramref name="userId">carId</paramref>.
+        // </summary>
+        // <param name="userId">ID uživatele</param>
+        // <param name="carId">ID auta</param>
+        // <returns>True, pokud uživatel je vlastník auta</returns>
+        // <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
+        public bool userHasCar(int userId, int carId)
+        {
+
+            using (OracleCommand cmd = new OracleCommand())
+            {
+                try
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = "SELECT * FROM \"car\" WHERE \"id\" = :p_car_id";
+                    cmd.CommandType = System.Data.CommandType.Text;
+
+                    OracleParameter pCarId = new OracleParameter();
+                    pCarId.OracleDbType = OracleDbType.Decimal;
+                    pCarId.Value = carId;
+                    pCarId.ParameterName = "p_car_id";
+
+                    cmd.Parameters.Add(pCarId);
+
+                    using (OracleDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            dr.Read();
+                            return ( userId == Convert.ToInt32(dr["user_id"].ToString()) );
+                        }
+                        else
+                        {
+                            throw new CarExpensesDatabaseException("Car ID " + carId + " doesn't exist.");
+                        }
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    switch (ex.Number)
+                    {
                         case 12545:
                             throw new CarExpensesDatabaseException("The database is unavailable.");
                         default:

@@ -27,5 +27,22 @@ namespace CarExpenses
             date = new DateTime(0);
             timestamp = 0;
         }
+
+        public override string ToString()
+        {
+            return (date.ToString("dd.MM.yyyy")) + " " +
+                    String.Format("{0, 7}", km) + " km " +
+                    String.Format("{0, 4}", cost.ToString("C")) +
+                    String.Format("{0, 30}", description);
+        }
+
+        // Součet 
+        public static Service operator +(Service s1, Service s2)
+        {
+            Service result = new Service();
+            result.cost = s1.cost + s2.cost;
+            result.description = "Total cost of services";
+            return result;
+        }
     }
 }

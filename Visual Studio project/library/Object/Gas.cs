@@ -25,5 +25,24 @@ namespace CarExpenses
             date = new DateTime(0);
             timestamp = 0;
         }
+
+        public override string ToString()
+        {
+            float liters = mililiters / 1000;
+            return (date.ToString("dd.MM.yyyy")) + " " + 
+                
+                    String.Format("{0, 7}", km) + " km " +
+                    String.Format("{0, 4}", liters) + " l " +
+                    String.Format("{0, 4}", cost.ToString("C"));
+        }
+
+        // Součet 
+        public static Gas operator +(Gas g1, Gas g2)
+        {
+            Gas result = new Gas();
+            result.cost = g1.cost + g2.cost;
+            result.mililiters = g1.mililiters + g2.mililiters;
+            return result;
+        }
     }
 }
