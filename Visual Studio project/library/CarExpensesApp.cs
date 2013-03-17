@@ -4,14 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
+using System.Text.RegularExpressions;
+using zikmundj.CarExpensesDAO;
 
-using CarExpensesTools;
-
-namespace CarExpenses
+namespace zikmundj.CarExpenses
 {
+    /// <summary>
+    /// Hlavní aplikace
+    /// </summary>
     public class CarExpensesApp
     {
+        /// <summary> Přihlášený uživatel </summary>
         public User user;
+
         private static CarExpensesApp instance;
         private OracleConnection connection;
 
@@ -24,7 +29,11 @@ namespace CarExpenses
             + "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=students.kiv.zcu.cz)(PORT=1521)))"
             + "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=students)));"
             + "User Id=zikmundj;Password=A12N0103P;";
-        
+
+        /// <summary>
+        /// Privátní konstruktor aplikace, je volán pouze jednou, inicializuje datové modely
+        /// </summary>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         private CarExpensesApp()
         {
             user = null;
@@ -35,8 +44,22 @@ namespace CarExpenses
             serviceDAO = new ServiceDAO(getConnection());
         }
 
+        /// <summary>
+        /// Destruktor aplikace, ukončuje spojení s databází, odhlašuje uživatele
+        /// </summary>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         ~CarExpensesApp()
         {
+            if (user != null)
+            {
+                user.password = null;
+                user.id = 0;
+                user.login = null;
+                user.region = null;
+                user.regionId = 0;
+                user = null;
+            }
+
             if (connection != null)
             {
                 try
@@ -55,6 +78,11 @@ namespace CarExpenses
             }
         }
 
+        /// <summary>
+        /// Vrací instanci aplikace, pokud žádná není, vytváří novou
+        /// </summary>
+        /// <returns>Instance aplikace</returns>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public static CarExpensesApp init
         {
             get 
@@ -67,6 +95,11 @@ namespace CarExpenses
             }
         }
 
+        /// <summary>
+        /// Vrací instanci spojení s databází, pokud žádné není, náváže nové
+        /// </summary>
+        /// <returns>Instance spojení s databází</returns>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         private OracleConnection getConnection()
         {
             if (connection == null)
@@ -88,16 +121,33 @@ namespace CarExpenses
             return connection;
         }
 
+        /// <summary>
+        /// Zjišťuje, zda je uživatel přihlášen
+        /// </summary>
+        /// <returns>Zda je uživatel přihlášen (true/false)</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public bool isLogged()
         {
             return user != null ? true : false;
         }
 
+        /// <summary>
+        /// Zjišťuje, zda je uživatel odhlášen
+        /// </summary>
+        /// <returns>Zda je uživatel odhlášen (true/false)</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public bool notLogged()
         {
             return user == null ? true : false;
         }
 
+        /// <summary>
+        /// Přihlášení uživatele
+        /// </summary>
+        /// <param name="login">Přihlašovací jméno uživatele</param>
+        /// <param name="password">Heslo uživatele</param>
+        /// <returns>Objekt <see cref="UserResponse"/>, kde je uložen stav akce, zpráva a objekt přihlášeného uživatele (při chybě null).</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public UserResponse login(string login, string password)
         {
             password = MD5(password);
@@ -126,12 +176,27 @@ namespace CarExpenses
             return response;
         }
 
+        /// <summary>
+        /// Odhlášení uživatele
+        /// </summary>
+        /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public Response logout()
         {
             user = null;
             return new Response(true, "You were successfuly logged out.");
         }
 
+        /// <summary>
+        /// Registrace nového uživatele
+        /// </summary>
+        /// <param name="login">Přihlašovací jméno uživatele</param>
+        /// <param name="password">Heslo uživatele</param>
+        /// <param name="email">Email uživatele</param>
+        /// <param name="bornYear">Rok narození uživatele</param>
+        /// <param name="regionId">Identifikace regionu, kde uživatel žije</param>
+        /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public Response register(string login, string password, string email, int bornYear, int regionId)
         {
             password = MD5(password);
@@ -139,9 +204,12 @@ namespace CarExpenses
 
             if (bornYear < (DateTime.Today.Year-130) || bornYear > DateTime.Today.Year)
             {
-                response.message = "Born year must be between " + (DateTime.Today.Year - 130) + " and " + DateTime.Today.Year + ".";
-                response.success = false;
-                return response;
+                return new Response(false,"Born year must be between " + (DateTime.Today.Year - 130) + " and " + DateTime.Today.Year + ".");
+            }
+
+            if (CarExpensesApp.validateEmail(email) == false)
+            {
+                return new Response(false, "Email is not in valid format.");
             }
             
             try
@@ -167,6 +235,11 @@ namespace CarExpenses
             return response;
         }
 
+        /// <summary>
+        /// Získání uživatelovo aut
+        /// </summary>
+        /// <returns>Objekt <see cref="CarResponse"/>, kde je uložen stav akce, zpráva a seznam uživatelovo aut (při chybě null).</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public CarResponse getUserCars()
         {
             if ( notLogged() ) return new CarResponse(false, "You are NOT logged in.");
@@ -187,6 +260,15 @@ namespace CarExpenses
             return response;
         }
 
+        /// <summary>
+        /// Přidání nového auta k aktuálně přihlášenému uživateli
+        /// </summary>
+        /// <param name="carModelId">Identifikace typu auta</param>
+        /// <param name="name">Jměno auta</param>
+        /// <param name="boughtYear">Rok zakoupení auta</param>
+        /// <param name="cost">Cena auta</param>
+        /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public Response addCar(int carModelId, string name, int boughtYear, int cost)
         {
             if (notLogged()) return new Response(false, "You are NOT logged in.");
@@ -218,7 +300,16 @@ namespace CarExpenses
             return response;
         }
 
-
+        /// <summary>
+        /// Přidání nového tankování k aktuálně přihlášenému uživateli
+        /// </summary>
+        /// <param name="carId">Identifikace auta, do kterého bylo tankováno</param>
+        /// <param name="km">Stav tachometru při tankování</param>
+        /// <param name="cost">Cena za tankování</param>
+        /// <param name="liters">Počet natankovaných litrů paliva</param>
+        /// <param name="date">Datum tankování</param>
+        /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public Response addGas(int carId, int km, float liters, int cost, DateTime date)
         {
             if (notLogged()) return new Response(false, "You are NOT logged in.");
@@ -260,6 +351,12 @@ namespace CarExpenses
             return response;
         }
 
+        /// <summary>
+        /// Získání tankování pro dané auto
+        /// </summary>
+        /// <param name="carId">Identifikace auta, pro které chceme tankování získat</param>
+        /// <returns>Objekt <see cref="GasResponse"/>, kde je uložen stav akce, zpráva a seznam tankování (při chybě null).</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public GasResponse getCarGasses(int carId)
         {
             if (notLogged()) return new GasResponse(false, "You are NOT logged in.");
@@ -280,7 +377,17 @@ namespace CarExpenses
             return response;
         }
 
-
+        /// <summary>
+        /// Přidání nové opravy k aktuálně přihlášenému uživateli
+        /// </summary>
+        /// <param name="carId">Identifikace auta, které bylo opravováno</param>
+        /// <param name="km">Stav tachometru při opravě</param>
+        /// <param name="cost">Cena opravy</param>
+        /// <param name="serviceTypeId">Identifikace typu opravy</param>
+        /// <param name="description">Slovní popis opravy</param>
+        /// <param name="date">Datum opravy</param>
+        /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public Response addService(int carId, int km, int cost, int serviceTypeId, string description, DateTime date)
         {
             if (notLogged()) return new Response(false, "You are NOT logged in.");
@@ -323,7 +430,12 @@ namespace CarExpenses
             return response;
         }
 
-
+        /// <summary>
+        /// Získání oprav pro dané auto
+        /// </summary>
+        /// <param name="carId">Identifikace auta, pro které chceme opravy získat</param>
+        /// <returns>Objekt <see cref="ServiceResponse"/>, kde je uložen stav akce, zpráva a seznam oprav (při chybě null).</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
         public ServiceResponse getCarServices(int carId)
         {
             if (notLogged()) return new ServiceResponse(false, "You are NOT logged in.");
@@ -343,7 +455,6 @@ namespace CarExpenses
             }
             return response;
         }
-
 
         private static string MD5(string password)
         {
@@ -367,6 +478,17 @@ namespace CarExpenses
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Validace formátu emailové adresy
+        /// </summary>
+        /// <param name="email">Emailová adresa pro zvalidování</param>
+        /// <returns>Stav, zda je emailová adresa validní (true/false)</returns>
+        public static bool validateEmail(string email)
+        {
+            Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            return emailRegex.Match(email).Success;
         }
     }
 }

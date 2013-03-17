@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarExpenses;
-using System.Text.RegularExpressions;
+using zikmundj.CarExpenses;
 
-namespace CarExpensesConsole
+namespace zikmundj.ConsoleClient
 {
-    class Program
+    class ConsoleClient
     {
         static string startText =
             "****************************************************************\n" +
@@ -39,8 +38,10 @@ namespace CarExpensesConsole
 
         static User user = null;
         static Car car = null;
-        static Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 
+        /// <summary>
+        /// Vstupní bod aplikace
+        /// </summary>
         static void Main(string[] args)
         {
             Console.Write(startText);
@@ -138,6 +139,9 @@ namespace CarExpensesConsole
             }
         }
 
+        /// <summary>
+        /// Inicializace aplikace
+        /// </summary>
         static void initApp()
         {
             Console.WriteLine();
@@ -146,6 +150,9 @@ namespace CarExpensesConsole
             Console.WriteLine("OK");
         }
 
+        /// <summary>
+        /// Přihlášení uživatele
+        /// </summary>
         static bool login()
         {
             Console.Write("login: ");
@@ -166,6 +173,9 @@ namespace CarExpensesConsole
             return response.success;
         }
 
+        /// <summary>
+        /// Odhlášení uživatele
+        /// </summary>
         static bool logout()
         {
             Response response = application.logout();
@@ -178,6 +188,9 @@ namespace CarExpensesConsole
             return response.success;
         }
 
+        /// <summary>
+        /// Vynutí stisknutí libovolné klávesy před pokračováním
+        /// </summary>
         static void keyToContinue(string message = "--press any key to continue--")
         {
             Console.WriteLine();
@@ -185,17 +198,18 @@ namespace CarExpensesConsole
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Registrace uživatele
+        /// </summary>
         static bool register()
         {
             Console.WriteLine("==NEW REGISTRATION==");
             Console.Write("Login: ");
             string login = Console.ReadLine();
 
-
             Console.Write("Email: ");
             string email;
-            Match m;
-            while ((m = emailRegex.Match(email = Console.ReadLine())).Success == false)
+            while ( CarExpensesApp.validateEmail( email=Console.ReadLine()) == false )
             {
                 Console.WriteLine("--Please enter valid email address!");
                 Console.Write("Email: ");
@@ -244,6 +258,9 @@ namespace CarExpensesConsole
             return response.success;
         }
 
+        /// <summary>
+        /// Přidání nového auta
+        /// </summary>
         static bool addCar()
         {
             Console.WriteLine("==ADD NEW CAR==");
@@ -290,6 +307,9 @@ namespace CarExpensesConsole
             return response.success;
         }
 
+        /// <summary>
+        /// Přidání tankování
+        /// </summary>
         static bool addGas()
         {
             if (car == null)
@@ -340,6 +360,10 @@ namespace CarExpensesConsole
             return response.success;
         }
 
+        /// <summary>
+        /// Výpis stavu tankování pro aktuální auto
+        /// </summary>
+        /// <param name="itemsPerPage">Počet vypsaných záznamů na jednu stránku</param>
         static void writeGasStats(int itemsPerPage = 10)
         {
             if (car == null)
@@ -381,6 +405,9 @@ namespace CarExpensesConsole
             keyToContinue("--END OF LIST, press any key to continue--");
         }
 
+        /// <summary>
+        /// Přidání opravy k aktuálnímu autu
+        /// </summary>
         static bool addService()
         {
             if (car == null)
@@ -441,6 +468,10 @@ namespace CarExpensesConsole
             return response.success;
         }
 
+        /// <summary>
+        /// Výpis stavu oprav pro aktuální auto
+        /// </summary>
+        /// <param name="itemsPerPage">Počet vypsaných záznamů na jednu stránku</param>
         static void writeServiceStats(int itemsPerPage = 10)
         {
             if (car == null)
@@ -483,6 +514,10 @@ namespace CarExpensesConsole
             keyToContinue("--END OF LIST, press any key to continue--");
         }
 
+        /// <summary>
+        /// Načtení hesla od uživatele, znaky jsou nahrazovány hvězdičkou
+        /// </summary>
+        /// <returns>Načtené heslo</returns>
         static string readPassword()
         {
             string pass = "";
@@ -511,6 +546,11 @@ namespace CarExpensesConsole
             return pass;
         }
 
+        /// <summary>
+        /// Výpis menu pro výbě položek - položky jsou vybírány šipkami nahoru a dolu, entrem vybírá, escape ruší nabídku
+        /// </summary>
+        /// <param name="items">Pole řetězců, jednotlivé položky nabídky</param>
+        /// <returns>Číslo byrané položky. 0 = escape, 1 = první položka, 2 = druhá....</returns>
         static int menu(string[] items)
         {
             Console.WriteLine();
@@ -551,6 +591,10 @@ namespace CarExpensesConsole
             return selected+1;
         }
 
+        /// <summary>
+        /// Výpis všech aut přihlášeného uživatele - uživatel vybírá šipkami nahoru a dolu, entrem potvrzuje, escape ruší nabídku
+        /// </summary>
+        /// <returns>Stav, zda se výběr podařil (true/false)</returns>
         static bool selectCar()
         {
             CarResponse response = application.getUserCars();
@@ -613,6 +657,10 @@ namespace CarExpensesConsole
             return true;
         }
 
+        /// <summary>
+        /// Ukončí aplikaci, v případě potřeby odhásí uživatele
+        /// </summary>
+        /// <param name="code">Exit code returned to system</param>
         static void exit(int code = 0)
         {
             if (user != null)

@@ -7,8 +7,8 @@
     <ProjectGuid>{46445A88-CF1E-4ACE-AAF9-B5B18ED56862}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CarExpenses</RootNamespace>
-    <AssemblyName>core</AssemblyName>
+    <RootNamespace>zikmundj.CarExpenses</RootNamespace>
+    <AssemblyName>CarExpensesCore</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\CarExpensesCore.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\CarExpensesCore.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
@@ -57,7 +59,7 @@
     <Compile Include="Class\Response.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Object\User.cs" />
-    <Compile Include="CoreApp.cs" />
+    <Compile Include="CarExpensesApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

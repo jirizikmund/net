@@ -4,22 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
+using zikmundj.CarExpenses;
 
-using CarExpenses;
-
-namespace CarExpensesTools
+namespace zikmundj.CarExpensesDAO
 {
+    /// <summary>
+    /// Datový model pracující s informacemi o tankování
+    /// </summary>
     class GasDAO : BaseDAO
     {
+        /// <summary>
+        /// Konstruktor datového modelu.
+        /// </summary>
+        /// <param name="connection">Instance připojení k databázi</param>
         public GasDAO(OracleConnection connection) : base(connection)
         { }
 
-        // <summary>
-        // Získává všechny informace o tankování vztahující se ka autu danému parametrem <paramref name="carId">carId</paramref>
-        // </summary>
-        // <param name="carId">ID auta</param>
-        // <returns>Seznam informací o tankování pro dané auto</returns>
-        // <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
+        /// <summary>
+        /// Získává všechny informace o tankování vztahující se ka autu danému parametrem <paramref name="carId">carId</paramref>
+        /// </summary>
+        /// <param name="carId">ID auta</param>
+        /// <returns>Seznam informací o tankování pro dané auto</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public List<Gas> getCarGasses(int carId)
         {
             List<Gas> gasList = new List<Gas>();
@@ -80,7 +86,14 @@ namespace CarExpensesTools
             }
         }
 
-
+        /// <summary>
+        /// Vkládá informaci o novém tankování do databáze.
+        /// Vše je potřebné se nachází v objektu tankování (parametr <paramref name="gas">gas</paramref>),
+        /// včetné ID auta, ke kterému se vztahuje.
+        /// </summary>
+        /// <param name="gas">Nová informace o tankování pro vložení do databáze</param>
+        /// <returns>True při úspěchu vložení</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public bool addGas(Gas gas)
         {
             using (OracleCommand cmdInsert = new OracleCommand())
@@ -137,7 +150,7 @@ namespace CarExpensesTools
                         case 1:
                             throw new CarExpensesDatabaseException("Gas ID " + gas.id + " already exists.");
                         //case 2291:
-                        //    throw new CarExpensesDatabaseException("Car ID " + gas.carId + " doesn't exist.");
+                        //   throw new CarExpensesDatabaseException("Car ID " + gas.carId + " doesn't exist.");
                         case 12545:
                             throw new CarExpensesDatabaseException("The database is unavailable.");
                         default:

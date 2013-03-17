@@ -4,29 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
+using zikmundj.CarExpenses;
 
-using CarExpenses;
-
-namespace CarExpensesTools
+namespace zikmundj.CarExpensesDAO
 {
-    // <summary>
-    // Datový model epracující s autama v databázi
-    // </summary>
+    /// <summary>
+    /// Datový model pracující s autama
+    /// </summary>
     class CarDAO : BaseDAO
     {
-        // <summary>
-        // Konstruktor datového modelu.
-        // </summary>
-        // <param name="connection">Instance připojení k databázi</param>
+        /// <summary>
+        /// Konstruktor datového modelu.
+        /// </summary>
+        /// <param name="connection">Instance připojení k databázi</param>
         public CarDAO(OracleConnection connection) : base(connection)
         { }
 
-        // <summary>
-        // Získává všechny auta patřící uživateli specifikovaného parametrem <paramref name="userId">userId</paramref>
-        // </summary>
-        // <param name="userId">ID uživatele</param>
-        // <returns>Seznam aut daného uživatele</returns>
-        // <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
+        /// <summary>
+        /// Získává všechny auta patřící uživateli specifikovaného parametrem <paramref name="userId">userId</paramref>
+        /// </summary>
+        /// <param name="userId">ID uživatele</param>
+        /// <returns>Seznam aut daného uživatele</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public List<Car> getUserCars(int userId)
         {
             List<Car> carList = new List<Car>();
@@ -87,14 +86,14 @@ namespace CarExpensesTools
             }
         }
 
-        // <summary>
-        // Vkládá do databáze nové auto.
-        // Vše je potřebné se nachází v objektu auta (parametr <paramref name="userId">userId</paramref>),
-        // včetné ID uživatele, ke kterému se vztahuje.
-        // </summary>
-        // <param name="car">Nové auto pro vložení do databáze</param>
-        // <returns>Úspěch vložení</returns>
-        // <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
+        /// <summary>
+        /// Vkládá do databáze nové auto.
+        /// Vše je potřebné se nachází v objektu auta (parametr <paramref name="userId">userId</paramref>),
+        /// včetné ID uživatele, ke kterému se vztahuje.
+        /// </summary>
+        /// <param name="car">Nové auto pro vložení do databáze</param>
+        /// <returns>Úspěch vložení</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public bool addCar(Car car)
         {
             using (OracleCommand cmdInsert = new OracleCommand())
@@ -168,14 +167,14 @@ namespace CarExpensesTools
             }
         }
 
-        // <summary>
-        // Zjišťuje, zda uživatel s ID <paramref name="userId">userId</paramref>
-        // je vlastníkem auta s ID <paramref name="userId">carId</paramref>.
-        // </summary>
-        // <param name="userId">ID uživatele</param>
-        // <param name="carId">ID auta</param>
-        // <returns>True, pokud uživatel je vlastník auta</returns>
-        // <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
+        /// <summary>
+        /// Zjišťuje, zda uživatel s ID <paramref name="userId">userId</paramref>
+        /// je vlastníkem auta s ID <paramref name="userId">carId</paramref>.
+        /// </summary>
+        /// <param name="userId">ID uživatele</param>
+        /// <param name="carId">ID auta</param>
+        /// <returns>True, pokud uživatel je vlastník auta</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public bool userHasCar(int userId, int carId)
         {
 

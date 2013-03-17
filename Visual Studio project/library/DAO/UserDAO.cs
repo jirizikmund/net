@@ -4,16 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
+using zikmundj.CarExpenses;
 
-using CarExpenses;
-
-namespace CarExpensesTools
+namespace zikmundj.CarExpensesDAO
 {
+    /// <summary>
+    /// Datový model pracující s uživateli
+    /// </summary>
     class UserDAO : BaseDAO
     {
+        /// <summary>
+        /// Konstruktor datového modelu.
+        /// </summary>
+        /// <param name="connection">Instance připojení k databázi</param>
         public UserDAO(OracleConnection connection) : base(connection)
         { }
 
+        /// <summary>
+        /// Přihlášení uživatele pomocí jména a hesla v parametrech <paramref name="login">login</paramref>
+        /// a <paramref name="password">password</paramref>. Heslo musí být již zahashované, musí být
+        /// obstaráno již business logikou.
+        /// </summary>
+        /// <param name="login">Přihlašovací jméno uživatele.</param>
+        /// <param name="password">Zahashované heslo uživatele</param>
+        /// <returns>Objekt přihlášeného uživatele při úspěchu, null při chybě</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public User login(string login, string password)
         {
             User user = null;
@@ -67,7 +82,14 @@ namespace CarExpensesTools
             return user;
         }
 
-
+        /// <summary>
+        /// Registrace nového uživatele. O neduplicitu loginů se stará integrití omezení databáze
+        /// a v případě duplicity je vyvolána výjimka. ID uživatele a časový otisk (timestamp) jsou automaticky
+        /// generovány databází a i když jsou v objektu přiřazeny, jsou při vkládání ignorovány.
+        /// </summary>
+        /// <param name="user">Objekt nového uživatele pro registraci</param>
+        /// <returns>True při úspěchu, false při chybě</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public bool register(User user)
         {
             using (OracleCommand cmdInsert = new OracleCommand())
@@ -132,7 +154,7 @@ namespace CarExpensesTools
                 {
                     throw new CarExpensesDatabaseException(ex.Message.ToString());
                 }
-                catch (Exception ex) // catches any other error
+                catch (Exception ex) //catches any other error
                 {
                     throw new CarExpensesDatabaseException("Unexpected error: " + ex.Message.ToString());
                 }

@@ -4,16 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
+using zikmundj.CarExpenses;
 
-using CarExpenses;
-
-namespace CarExpensesTools
+namespace zikmundj.CarExpensesDAO
 {
+    /// <summary>
+    /// Datový model pracující s opravmi auta
+    /// </summary>
     class ServiceDAO : BaseDAO
     {
+        /// <summary>
+        /// Konstruktor datového modelu.
+        /// </summary>
+        /// <param name="connection">Instance připojení k databázi</param>
         public ServiceDAO(OracleConnection connection) : base(connection)
         { }
 
+        /// <summary>
+        /// Získává všechny informace o opravách vztahující se ka autu danému parametrem <paramref name="carId">carId</paramref>
+        /// </summary>
+        /// <param name="carId">ID auta</param>
+        /// <returns>Seznam informací o opravách pro dané auto</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public List<Service> getCarServices(int carId)
         {
             List<Service> serviceList = new List<Service>();
@@ -75,7 +87,14 @@ namespace CarExpensesTools
             }
         }
 
-
+        /// <summary>
+        /// Vkládá informaci o nové opravě do databáze.
+        /// Vše je potřebné se nachází v objektu opravy (parametr <paramref name="service">service</paramref>),
+        /// včetné ID auta, ke kterému se vztahuje.
+        /// </summary>
+        /// <param name="gas">Nová informace o opravě pro vložení do databáze</param>
+        /// <returns>True při úspěchu vložení</returns>
+        /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public bool addService(Service service)
         {
             using (OracleCommand cmdInsert = new OracleCommand())
