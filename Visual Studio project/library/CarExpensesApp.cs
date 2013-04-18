@@ -7,10 +7,13 @@ using Oracle.DataAccess.Client;
 using System.Text.RegularExpressions;
 using zikmundj.CarExpensesDAO;
 
+/// <summary>
+/// Třídy aplikace CarExpenses
+/// </summary>
 namespace zikmundj.CarExpenses
 {
     /// <summary>
-    /// Hlavní aplikace
+    /// Jádro aplikace CarExpenses.
     /// </summary>
     public class CarExpensesApp
     {
@@ -125,7 +128,7 @@ namespace zikmundj.CarExpenses
         /// Zjišťuje, zda je uživatel přihlášen
         /// </summary>
         /// <returns>Zda je uživatel přihlášen (true/false)</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public bool isLogged()
         {
             return user != null ? true : false;
@@ -135,7 +138,7 @@ namespace zikmundj.CarExpenses
         /// Zjišťuje, zda je uživatel odhlášen
         /// </summary>
         /// <returns>Zda je uživatel odhlášen (true/false)</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public bool notLogged()
         {
             return user == null ? true : false;
@@ -147,7 +150,7 @@ namespace zikmundj.CarExpenses
         /// <param name="login">Přihlašovací jméno uživatele</param>
         /// <param name="password">Heslo uživatele</param>
         /// <returns>Objekt <see cref="UserResponse"/>, kde je uložen stav akce, zpráva a objekt přihlášeného uživatele (při chybě null).</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public UserResponse login(string login, string password)
         {
             password = MD5(password);
@@ -180,7 +183,7 @@ namespace zikmundj.CarExpenses
         /// Odhlášení uživatele
         /// </summary>
         /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public Response logout()
         {
             user = null;
@@ -196,7 +199,7 @@ namespace zikmundj.CarExpenses
         /// <param name="bornYear">Rok narození uživatele</param>
         /// <param name="regionId">Identifikace regionu, kde uživatel žije</param>
         /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public Response register(string login, string password, string email, int bornYear, int regionId)
         {
             password = MD5(password);
@@ -239,7 +242,7 @@ namespace zikmundj.CarExpenses
         /// Získání uživatelovo aut
         /// </summary>
         /// <returns>Objekt <see cref="CarResponse"/>, kde je uložen stav akce, zpráva a seznam uživatelovo aut (při chybě null).</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public CarResponse getUserCars()
         {
             if ( notLogged() ) return new CarResponse(false, "You are NOT logged in.");
@@ -268,7 +271,7 @@ namespace zikmundj.CarExpenses
         /// <param name="boughtYear">Rok zakoupení auta</param>
         /// <param name="cost">Cena auta</param>
         /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public Response addCar(int carModelId, string name, int boughtYear, int cost)
         {
             if (notLogged()) return new Response(false, "You are NOT logged in.");
@@ -309,7 +312,7 @@ namespace zikmundj.CarExpenses
         /// <param name="liters">Počet natankovaných litrů paliva</param>
         /// <param name="date">Datum tankování</param>
         /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public Response addGas(int carId, int km, float liters, int cost, DateTime date)
         {
             if (notLogged()) return new Response(false, "You are NOT logged in.");
@@ -356,7 +359,7 @@ namespace zikmundj.CarExpenses
         /// </summary>
         /// <param name="carId">Identifikace auta, pro které chceme tankování získat</param>
         /// <returns>Objekt <see cref="GasResponse"/>, kde je uložen stav akce, zpráva a seznam tankování (při chybě null).</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public GasResponse getCarGasses(int carId)
         {
             if (notLogged()) return new GasResponse(false, "You are NOT logged in.");
@@ -387,7 +390,7 @@ namespace zikmundj.CarExpenses
         /// <param name="description">Slovní popis opravy</param>
         /// <param name="date">Datum opravy</param>
         /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public Response addService(int carId, int km, int cost, int serviceTypeId, string description, DateTime date)
         {
             if (notLogged()) return new Response(false, "You are NOT logged in.");
@@ -435,7 +438,7 @@ namespace zikmundj.CarExpenses
         /// </summary>
         /// <param name="carId">Identifikace auta, pro které chceme opravy získat</param>
         /// <returns>Objekt <see cref="ServiceResponse"/>, kde je uložen stav akce, zpráva a seznam oprav (při chybě null).</returns>
-        /// <exception cref="CarExpensesDatabaseException">Při chybě aplikace</exception>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
         public ServiceResponse getCarServices(int carId)
         {
             if (notLogged()) return new ServiceResponse(false, "You are NOT logged in.");
@@ -456,6 +459,63 @@ namespace zikmundj.CarExpenses
             return response;
         }
 
+        /// <summary>
+        /// Získání informace o včech servisech auta
+        /// </summary>
+        /// <param name="carId">Identifikace auta, o kterém chceme informace získat</param>
+        /// <returns>ˇŘetězec s informacemi</returns>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
+        public string getTotalServiceInfo(int carId)
+        {
+            ServiceResponse response = this.getCarServices(carId);
+            if (response.success)
+            {
+                Service service = new Service();
+                int count = 0;
+                foreach (Service s in response.serviceList)
+                {
+                    count++;
+                    service += s;
+                }
+                return "Total " + count + " services for " + service.cost.ToString("C") + "";
+            }
+            else
+            {
+                return "Unknown total services stats.";
+            }
+        }
+
+        /// <summary>
+        /// Získání informace o včech tankování auta
+        /// </summary>
+        /// <param name="carId">Identifikace auta, o kterém chceme informace získat</param>
+        /// <returns>ˇŘetězec s informacemi</returns>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
+        public string getTotalGasInfo(int carId)
+        {
+            GasResponse response = this.getCarGasses(carId);
+            if (response.success)
+            {
+                Gas gas = new Gas();
+                int count = 0;
+                foreach (Gas g in response.gasList)
+                {
+                    count++;
+                    gas += g;
+                }
+                return "Total " + (float)(gas.mililiters / 100) + " liters for " + gas.cost.ToString("C") + "  (" + count + "x)";
+            }
+            else
+            {
+                return "Unknown total services stats.";
+            }
+        }
+
+        /// <summary>
+        /// Hashuje řetězec do MD5
+        /// </summary>
+        /// <param name="password">Řetězec k hasování</param>
+        /// <returns>Zahashovaný řetězec</returns>
         private static string MD5(string password)
         {
             byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(password);

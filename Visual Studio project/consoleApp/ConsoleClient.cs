@@ -5,8 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using zikmundj.CarExpenses;
 
+/// <summary>
+/// Třídy pro konzolového klienta aplikace CarExpenses
+/// </summary>
 namespace zikmundj.ConsoleClient
 {
+    /// <summary>
+    /// Konzolová aplikace sloužící jako klient pro jádro aplikace <see cref="CarExpensesApp"/>
+    /// </summary>
     class ConsoleClient
     {
         static string startText =
@@ -23,16 +29,31 @@ namespace zikmundj.ConsoleClient
         static string mainMenuText =
             "****************************************************************\n" +
             "*                                                              *\n" +
+            "*                                                              *\n" +
             "*                          MAIN MENU                           *\n" +
             "*                                                              *\n" +
+            "*                                                              *\n" +
+            "*    (hint: use escape for cancel selection or going back)     *\n" +
+            "*                                                              *\n" +
             "****************************************************************\n";
-
-        static string carMenuText =
+        /// <summary>
+        /// Vrací text pro zobrazení v menu auta
+        /// </summary>
+        /// <returns>Text pro zobrazení</returns>
+        static string getCarMenuText()
+        {
+            string text =
             "****************************************************************\n" +
-            "*                                                              *\n" +
-            "*                          YOUR CAR                            *\n" +
-            "*                                                              *\n" +
+            "\n" +
+            "               " + car.name + "\n" +
+            "\n" +
+            "  -- bought " + car.boughtYear + " for " + car.cost.ToString("C") + " --\n" +
+            "  " + application.getTotalGasInfo(car.id) + "\n" +
+            "  " + application.getTotalServiceInfo(car.id) + "\n" +
+            "\n" +
             "****************************************************************\n";
+            return text;
+        }
 
         static CarExpensesApp application = null;
 
@@ -100,8 +121,8 @@ namespace zikmundj.ConsoleClient
 
             CarMenu:
                 Console.Clear();
-                Console.Write(carMenuText);
-                switch (menu(new string[] { "Add gas", "Add service", "History of gas", "History of service", "Logout", "Exit" }))
+                Console.Write(getCarMenuText());
+                switch (menu(new string[] { "Add gas", "Add service", "History of gas", "History of service", "Back", "Logout", "Exit" }))
                 {
                     case 0: // Escape
                         car = null;
@@ -118,12 +139,15 @@ namespace zikmundj.ConsoleClient
                     case 4: // History of service
                         writeServiceStats();
                         goto CarMenu;
-                    case 5: // Logout
+                    case 5: // Back
+                        car = null;
+                        goto MainMenu;
+                    case 6: // Logout
                         if (logout())
                             goto Start;
                         else
                             goto CarMenu;
-                    case 6: // Exit
+                    case 7: // Exit
                         exit(0);
                         break;
                 }
@@ -386,13 +410,6 @@ namespace zikmundj.ConsoleClient
 
             List<Gas> list = response.gasList;
 
-            Gas totalGas = new Gas();
-            foreach (Gas gas in list)
-            {
-                totalGas += gas;
-            }
-            Console.WriteLine("Total " + totalGas.mililiters/1000 + " liters of gas for " + totalGas.cost.ToString("c") + "." );
-
             int i = 0;
             foreach (Gas gas in list)
             {
@@ -493,14 +510,6 @@ namespace zikmundj.ConsoleClient
             Console.WriteLine();
 
             List<Service> list = response.serviceList;
-
-            Service totalService = new Service();
-            foreach (Service service in list)
-            {
-                totalService += service;
-            }
-            Console.WriteLine("Total cost of services: " + totalService.cost);
-            Console.WriteLine();
 
             int i = 0;
             foreach (Service service in list)
@@ -631,7 +640,7 @@ namespace zikmundj.ConsoleClient
                     {
                         Console.Write("  ");
                     }
-                    Console.WriteLine(_car);
+                    Console.WriteLine(_car.name);
                     i++;
                 }
 

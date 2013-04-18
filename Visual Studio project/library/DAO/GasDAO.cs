@@ -35,7 +35,7 @@ namespace zikmundj.CarExpensesDAO
                 try
                 {
                     cmd.Connection = connection;
-                    cmd.CommandText = "SELECT * FROM \"gas\" WHERE \"car_id\" = :p_car_id";
+                    cmd.CommandText = "SELECT * FROM \"gas\" WHERE \"car_id\" = :p_car_id ORDER BY \"date\" DESC";
                     cmd.CommandType = System.Data.CommandType.Text;
 
                     OracleParameter pCarId = new OracleParameter();
@@ -127,8 +127,8 @@ namespace zikmundj.CarExpensesDAO
                     pCost.ParameterName = "p_cost";
 
                     OracleParameter pDate = new OracleParameter();
-                    pDate.OracleDbType = OracleDbType.Date;
-                    pDate.Value = gas.date;
+                    //pDate.OracleDbType = OracleDbType.Date;
+                    pDate.Value = gas.date.ToString("yyyy/MM/dd");
                     pDate.ParameterName = "p_date";
 
                     cmdInsert.Parameters.Add(pCarId);

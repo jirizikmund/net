@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
 
+/// <summary>
+/// Třídy obsahující datové modely pro prácí s databází
+/// </summary>
 namespace zikmundj.CarExpensesDAO
 {
     /// <summary>

@@ -47,7 +47,13 @@ namespace zikmundj.CarExpenses
         /// <returns>Řetězec, vhodné pro tabulkový výpis</returns>
         public override string ToString()
         {
-            return String.Format("{0, -15}", name) + "bought " + String.Format("{0, 4}", boughtYear) + ", cost " + cost.ToString("C"); 
+            string shortName = name;
+            if (shortName.Length > 20)
+                shortName = name.Substring(0,20);
+
+            return  ""          + String.Format("{0, -20}", shortName) +
+                    " bought "  + String.Format("{0, 4}", boughtYear) +
+                    ", cost "   + cost.ToString("C"); 
         }
     }
 }

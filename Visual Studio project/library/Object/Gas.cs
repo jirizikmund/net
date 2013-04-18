@@ -52,11 +52,11 @@ namespace zikmundj.CarExpenses
         public override string ToString()
         {
             float liters = mililiters / 1000;
-            return (date.ToString("dd.MM.yyyy")) + " " + 
-                
+
+            return  date.ToString("dd.MM.yyyy") + " " + 
                     String.Format("{0, 7}", km) + " km " +
                     String.Format("{0, 4}", liters) + " l " +
-                    String.Format("{0, 4}", cost.ToString("C"));
+                    cost.ToString("C");
         }
 
         /// <summary>
