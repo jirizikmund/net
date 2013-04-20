@@ -92,7 +92,7 @@ namespace zikmundj.CarExpensesDAO
         /// Vše je potřebné se nachází v objektu opravy (parametr <paramref name="service">service</paramref>),
         /// včetné ID auta, ke kterému se vztahuje.
         /// </summary>
-        /// <param name="gas">Nová informace o opravě pro vložení do databáze</param>
+        /// <param name="service">Nová informace o opravě pro vložení do databáze</param>
         /// <returns>True při úspěchu vložení</returns>
         /// <exception cref="CarExpensesDatabaseException">Při chybě práce s databází</exception>
         public bool addService(Service service)

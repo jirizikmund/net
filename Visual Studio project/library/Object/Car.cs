@@ -47,6 +47,15 @@ namespace zikmundj.CarExpenses
         /// <returns>Řetězec, vhodné pro tabulkový výpis</returns>
         public override string ToString()
         {
+            return name;
+        }
+
+        /// <summary>
+        /// Převod objektu na řetězec
+        /// </summary>
+        /// <returns>Řetězec, vhodné pro tabulkový výpis</returns>
+        public string getTableString()
+        {
             string shortName = name;
             if (shortName.Length > 20)
                 shortName = name.Substring(0,20);
@@ -59,7 +68,7 @@ namespace zikmundj.CarExpenses
         /// <summary>
         /// Krátký název auta
         /// </summary>
-        /// <param name="legth">Maximální délka názvu</param>
+        /// <param name="maxLegth">Maximální délka názvu</param>
         /// <returns>Název o maximální délce podle zadaného parametru length</returns>
         public string getShortName(int maxLength = 20)
         {
