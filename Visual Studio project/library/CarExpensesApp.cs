@@ -99,6 +99,16 @@ namespace zikmundj.CarExpenses
         }
 
         /// <summary>
+        /// Vrací instanci aplikace, pokud žádná není, vytváří novou
+        /// </summary>
+        /// <returns>Instance aplikace</returns>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
+        public static CarExpensesApp getInstance()
+        {
+            return init;
+        }
+
+        /// <summary>
         /// Vrací instanci spojení s databází, pokud žádné není, náváže nové
         /// </summary>
         /// <returns>Instance spojení s databází</returns>
