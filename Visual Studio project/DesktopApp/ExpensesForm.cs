@@ -57,24 +57,61 @@ namespace DesktopApp
             {
                 foreach (Car car in carResponse.carList)
                 {
-                    cmbxSelectCar.Items.Add(car);
+                    comboSelectCar.Items.Add(car);
                 }
             }
         }
 
         private void disableElements()
         {
+            lblCarName.Text = "<< select car";
+            lblCarYear.Text = "";
+            lblCarPrice.Text = "";
+            lblCarCosts.Text = "";
+            lblCarTotal.Text = "";
 
+            lblGasCount.Text = "";
+            lblGasCost.Text = "";
+            lblGasLiters.Text = "";
+
+            lblServiceCount.Text = "";
+            lblServiceCost.Text = "";
+
+            lblOtherCount.Text = "";
+            lblOtherCost.Text = "";
+
+            btnAddGas.Enabled = false;
+            btnAddService.Enabled = false;
+            btnAddOther.Enabled = false;
         }
 
-        private void reloadCarGas()
+        private void enableElements()
+        {
+            btnAddGas.Enabled = true;
+            btnAddService.Enabled = true;
+            btnAddOther.Enabled = true;
+        }
+
+        private void reloadCarInfo()
         {
             if (this.selectedCar == null)
             {
                 MessageBox.Show("No car selected, gas info can't be loaded.");
                 return;
             }
+            lblCarName.Text = this.selectedCar.name;
+            lblCarPrice.Text = this.selectedCar.cost.ToString();
+            lblCarTotal.Text = "TODO !!!";
+            lblCarCosts.Text = "TODO !!!";
+        }
 
+        private void reloadGas()
+        {
+            if (this.selectedCar == null)
+            {
+                MessageBox.Show("No car selected, gas info can't be loaded.");
+                return;
+            }
             GasResponse gasResponse = carExpensesApp.getCarGasses(this.selectedCar.id);
 
             if (gasResponse.success == false) 
@@ -85,20 +122,16 @@ namespace DesktopApp
 
             DataTable table = new DataTable();
 
-                //Create columns for DataTable
-            DataColumn colId = new DataColumn("Id");
             DataColumn colKm = new DataColumn("Km");
             DataColumn colLiters = new DataColumn("Liters");
             DataColumn colCost = new DataColumn("Cost");
             DataColumn colDate = new DataColumn("Date");
-                //Define DataType of the Columns
-            colId.DataType = System.Type.GetType("System.Int32");
+
             colKm.DataType = System.Type.GetType("System.Int32");
             colLiters.DataType = System.Type.GetType("System.Double");
             colCost.DataType = System.Type.GetType("System.Int32");
             colDate.DataType = System.Type.GetType("System.DateTime");
-                //Add All These Columns into DataTable table
-            table.Columns.Add(colId);
+
             table.Columns.Add(colKm);
             table.Columns.Add(colLiters);
             table.Columns.Add(colCost);
@@ -106,35 +139,76 @@ namespace DesktopApp
                 
             foreach (Gas gas in gasResponse.gasList)
             {
-                    //Create a Row in the DataTable table
                 DataRow row = table.NewRow();
-                    //Fill All Columns with Data
-                row[colId] = gas.id;
+
                 row[colKm] = gas.km;
                 row[colLiters] = gas.mililiters / 1000;
                 row[colCost] = gas.cost;
                 row[colDate] = gas.date;
-                    //Add the Row into DataTable
+
                 table.Rows.Add(row);
             }
-                //Bind DataTable to a GridView
             tableGas.DataSource = table;
+        }
+
+        private void reloadService()
+        {
+            if (this.selectedCar == null)
+            {
+                MessageBox.Show("No car selected, service info can't be loaded.");
+                return;
+            }
+            ServiceResponse serviceResponse = carExpensesApp.getCarServices(this.selectedCar.id);
+
+            if (serviceResponse.success == false)
+            {
+                MessageBox.Show(serviceResponse.message);
+                return;
+            }
+
+            DataTable table = new DataTable();
+
+            DataColumn colKm = new DataColumn("Km");
+            DataColumn colCost = new DataColumn("Cost");
+            DataColumn colDate = new DataColumn("Date");
+            DataColumn colDescription = new DataColumn("Description");
+
+            colKm.DataType = System.Type.GetType("System.Int32");
+            colCost.DataType = System.Type.GetType("System.Int32");
+            colDate.DataType = System.Type.GetType("System.DateTime");
+            colDescription.DataType = System.Type.GetType("System.String");
+
+            table.Columns.Add(colKm);
+            table.Columns.Add(colCost);
+            table.Columns.Add(colDate);
+            table.Columns.Add(colDescription);
+
+            foreach (Service service in serviceResponse.serviceList)
+            {
+                DataRow row = table.NewRow();
+
+                row[colKm] = service.km;
+                row[colCost] = service.cost;
+                row[colDate] = service.date;
+                row[colDescription] = service.description;
+
+                table.Rows.Add(row);
+            }
+            tableService.DataSource = table;
         }
 
         private void btnAddNewCar_Click(object sender, EventArgs e)
         {
-            
+
         }
 
-        private void cmbxSelectCar_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboSelectCar_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            selectedCar = (Car)cmbxSelectCar.SelectedItem;
-            reloadCarGas();
-        }
-
-        private void ExpensesForm_Load(object sender, EventArgs e)
-        {
-
+            selectedCar = (Car)comboSelectCar.SelectedItem;
+            reloadCarInfo();
+            reloadGas();
+            reloadService();
+            enableElements();
         }
     }
 }
