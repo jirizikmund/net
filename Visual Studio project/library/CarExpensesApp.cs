@@ -26,6 +26,7 @@ namespace zikmundj.CarExpenses
         private CarDAO carDAO;
         private GasDAO gasDAO;
         private ServiceDAO serviceDAO;
+        private OtherExpenseDAO otherExpenseDAO;
 
         private string oradb = "Data Source=(DESCRIPTION="
             + "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=students.kiv.zcu.cz)(PORT=1521)))"
@@ -44,6 +45,7 @@ namespace zikmundj.CarExpenses
             carDAO = new CarDAO(getConnection());
             gasDAO = new GasDAO(getConnection());
             serviceDAO = new ServiceDAO(getConnection());
+            otherExpenseDAO = new OtherExpenseDAO(getConnection());
         }
 
         /// <summary>
@@ -505,7 +507,7 @@ namespace zikmundj.CarExpenses
         }
 
         /// <summary>
-        /// Získání informace o včech tankování auta
+        /// Získání souhrnné informace o včech tankování auta
         /// </summary>
         /// <param name="carId">Identifikace auta, o kterém chceme informace získat</param>
         /// <returns>ˇŘetězec s informacemi</returns>
@@ -529,6 +531,86 @@ namespace zikmundj.CarExpenses
                 return "Unknown total services stats.";
             }
         }
+
+        /// <summary>
+        /// Přidání nového jiného výdaje k aktuálně přihlášenému uživateli
+        /// </summary>
+        /// <param name="carId">Identifikace auta, ke kterému se výdaj vztahuje</param>
+        /// <param name="km">Stav tachometru při jiném výdaji</param>
+        /// <param name="cost">Cena jiného výdaje</param>
+        /// <param name="description">Slovní popis jiného výdaje</param>
+        /// <param name="date">Datum jiného výdaje</param>
+        /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
+        public Response addService(int carId, int km, int cost, string description, DateTime date)
+        {
+            if (notLogged()) return new Response(false, "You are NOT logged in.");
+
+            if (km < 1 || cost < 1)
+                return new Response(false, "Km and cost can't be smaller than 1.");
+
+            Response response = new Response();
+            try
+            {
+                if (carDAO.userHasCar(user.id, carId) == false)
+                {
+                    return new Response(false, "User ID " + user.id + " is not owner of car ID " + carId + ".");
+                }
+
+                OtherExpense otherExpense = new OtherExpense();
+                otherExpense.carId = carId;
+                otherExpense.km = km;
+                otherExpense.cost = cost;
+                otherExpense.description = description;
+                otherExpense.date = date;
+
+                if (otherExpenseDAO.addOtherExpense(otherExpense) == true)
+                {
+                    response.message = "Other expense was successfuly added.";
+                    response.success = true;
+                }
+                else
+                {
+                    response.message = "Other expense wasn't added.";
+                    response.success = false;
+                }
+            }
+            catch (CarExpensesDatabaseException ex)
+            {
+                response.success = false;
+                response.message = ex.Message.ToString();
+            }
+            return response;
+        }
+
+
+        /// <summary>
+        /// Získání jiných výdajů pro dané auto
+        /// </summary>
+        /// <param name="carId">Identifikátor auta, pro které chceme jiné výdaje získat</param>
+        /// <returns>Objekt <see cref="OtherExpenseResponse"/>, kde je uložen stav akce, zpráva a seznam oprav (při chybě null).</returns>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
+        public OtherExpenseResponse getCarServices(int carId)
+        {
+            if (notLogged()) return new OtherExpenseResponse(false, "You are NOT logged in.");
+
+            OtherExpenseResponse response = new OtherExpenseResponse();
+            try
+            {
+                List<OtherExpense> otherExpenseList = otherExpenseDAO.getCarOtherExpenses(carId);
+                response.success = true;
+                response.message = "There are " + otherExpenseList.Count + " other expenses available.";
+                response.otherExpenseList = otherExpenseList;
+            }
+            catch (CarExpensesDatabaseException ex)
+            {
+                response.success = false;
+                response.message = ex.Message.ToString();
+            }
+            return response;
+        }
+
+
 
         /// <summary>
         /// Hashuje řetězec do MD5

@@ -131,4 +131,30 @@ namespace zikmundj.CarExpenses
             this.serviceList = serviceList;
         }
     }
+
+    /// <summary>
+    /// Struktura používaná k předání odpovědí událostí aplikace.
+    /// Kromě stavu úspěhu obsahuje i zprávu a seznam oprav.
+    /// </summary>
+    public struct OtherExpenseResponse
+    {
+        /// <summary>Stav úspěchu (true/false)</summary>
+        public bool success;
+
+        /// <summary>Upřesňující informační zpráva odpovědi</summary>
+        public String message;
+
+        /// <summary>Seznam oprav</summary>
+        public List<OtherExpense> otherExpenseList;
+
+        /// <summary>
+        /// Konstruktor struktury
+        /// </summary>
+        public OtherExpenseResponse(bool success = false, String message = "", List<OtherExpense> otherExpenseList = null)
+        {
+            this.success = success;
+            this.message = message;
+            this.otherExpenseList = otherExpenseList;
+        }
+    }
 }
