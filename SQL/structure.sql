@@ -124,7 +124,7 @@ BEGIN
     SELECT "service_id_seq".nextval INTO :new."id" FROM dual;
 END;
 /
-ALTER TRIGGER "gas_id_autoincrement" ENABLE;
+ALTER TRIGGER "service_id_autoincrement" ENABLE;
 -----------------------------------------------------------------------------
 
 
@@ -138,6 +138,32 @@ CREATE TABLE "service_type"
 -----------------------------------------------------------------------------
 
 
+------------ OTHER_EXPENSE -----------------------------------------------------------
+
+CREATE TABLE "other_expense"
+(	"id" NUMBER NOT NULL ENABLE,
+	"car_id" NUMBER NOT NULL ENABLE,
+	"km" NUMBER,
+	"cost" NUMBER,
+	"date" DATE,
+	"description" VARCHAR2(1024 CHAR),
+	"timestamp" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+	 CONSTRAINT "other_expense_pk" PRIMARY KEY ("id")
+);
+
+CREATE SEQUENCE "other_expense_id_seq" INCREMENT BY 1 START WITH 1 nomaxvalue;
+
+CREATE OR REPLACE TRIGGER "other_expense_id_autoincrement"
+BEFORE INSERT ON "other_expense"
+FOR EACH ROW
+BEGIN
+    SELECT "other_expense_id_seq".nextval INTO :new."id" FROM dual;
+END;
+/
+ALTER TRIGGER "other_expense_id_autoincrement" ENABLE;
+-----------------------------------------------------------------------------
+
+
 ------- FOREGIN KEYS -------------
 alter table "users" add constraint users_region_fk foreign key("region_id") references "region"("id");
 alter table "car" add constraint car_users_fk foreign key("user_id") references "users"("id");
@@ -145,4 +171,5 @@ alter table "car" add constraint car_car_model_fk foreign key("car_model_id") re
 alter table "gas" add constraint gas_car_fk foreign key("car_id") references "car"("id");
 alter table "service" add constraint service_car_fk foreign key("car_id") references "car"("id");
 alter table "service" add constraint service_service_type_fk foreign key("service_type_id") references "service_type"("id");
+alter table "other_expense" add constraint other_expense_car_fk foreign key("car_id") references "car"("id");
 ------------------------------------------
