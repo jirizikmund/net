@@ -34,11 +34,18 @@ namespace DesktopApp
 
             if (success)
             {
-                Application.Run(new WelcomeForm(carExpensesApp));
+                try
+                {
+                    Application.Run(new WelcomeForm(carExpensesApp));
+                }
+                catch (CarExpensesException ex)
+                {
+                    showErrorDialog(ex.Message);
+                }
             }
         }
 
-        private async static void initCarExpensesApp()
+        private static void initCarExpensesApp()
         {
             try
             {
@@ -55,7 +62,7 @@ namespace DesktopApp
         private static void showErrorDialog(string message)
         {
             MessageBox.Show(message,
-                            "Error",
+                            "Car Expenses Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error,
                             MessageBoxDefaultButton.Button1);

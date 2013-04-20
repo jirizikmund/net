@@ -34,7 +34,7 @@
             // lblInit
             // 
             this.lblInit.AutoSize = true;
-            this.lblInit.Location = new System.Drawing.Point(35, 24);
+            this.lblInit.Location = new System.Drawing.Point(67, 27);
             this.lblInit.Name = "lblInit";
             this.lblInit.Size = new System.Drawing.Size(165, 17);
             this.lblInit.TabIndex = 0;
@@ -45,12 +45,12 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(234, 64);
+            this.ClientSize = new System.Drawing.Size(298, 73);
+            this.ControlBox = false;
             this.Controls.Add(this.lblInit);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "InitForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "InitForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 

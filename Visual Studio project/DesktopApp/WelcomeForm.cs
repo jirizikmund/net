@@ -28,15 +28,18 @@ namespace DesktopApp
                 DialogResult dr = loginForm.ShowDialog();
                 if (dr == DialogResult.OK)
                 {
-                    MessageBox.Show(loginForm.message);
+                    using (ExpensesForm expensesForm = new ExpensesForm(carExpensesApp, carExpensesApp.getUser()))
+                    {
+                        this.Hide();
+                        DialogResult dr2 = expensesForm.ShowDialog();
+                        if (dr2 == DialogResult.Abort)
+                        {
+                            this.Show();
+                            this.Focus();
+                        }
+                    }
                 }
             }
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            carExpensesApp.logout();
-            Application.Exit();
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -49,6 +52,12 @@ namespace DesktopApp
                     
                 }
             }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            carExpensesApp.logout();
+            Application.Exit();
         }
     }
 }

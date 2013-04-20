@@ -17,8 +17,7 @@ namespace zikmundj.CarExpenses
     /// </summary>
     public class CarExpensesApp
     {
-        /// <summary> Přihlášený uživatel </summary>
-        public User user;
+        private User user;
 
         private static CarExpensesApp instance;
         private OracleConnection connection;
@@ -106,6 +105,16 @@ namespace zikmundj.CarExpenses
         public static CarExpensesApp getInstance()
         {
             return init;
+        }
+
+        /// <summary>
+        /// Vrací aktuálně přihlášeného uživatele
+        /// </summary>
+        /// <returns>Přihlášený uživatel, null pokud není přihlášený</returns>
+        /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
+        public User getUser()
+        {
+            return this.user;
         }
 
         /// <summary>

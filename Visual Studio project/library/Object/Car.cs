@@ -55,5 +55,19 @@ namespace zikmundj.CarExpenses
                     " bought "  + String.Format("{0, 4}", boughtYear) +
                     ", cost "   + cost.ToString("C"); 
         }
+
+        /// <summary>
+        /// Krátký název auta
+        /// </summary>
+        /// <param name="legth">Maximální délka názvu</param>
+        /// <returns>Název o maximální délce podle zadaného parametru length</returns>
+        public string getShortName(int maxLength = 20)
+        {
+            string shortName = name;
+            if (shortName.Length > maxLength)
+                shortName = name.Substring(0, maxLength);
+
+            return shortName;
+        }
     }
 }

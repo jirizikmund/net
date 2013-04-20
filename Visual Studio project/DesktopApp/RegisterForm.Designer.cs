@@ -140,13 +140,15 @@
             this.txtBornYear.Location = new System.Drawing.Point(122, 149);
             this.txtBornYear.Name = "txtBornYear";
             this.txtBornYear.Size = new System.Drawing.Size(100, 22);
-            this.txtBornYear.TabIndex = 4;
+            this.txtBornYear.TabIndex = 5;
             // 
             // RegisterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(282, 255);
+            this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.lblBornYear);
@@ -161,7 +163,9 @@
             this.Controls.Add(this.txtLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "RegisterForm";
-            this.Text = "RegisterForm";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "New Registration";
             this.ResumeLayout(false);
             this.PerformLayout();
 
