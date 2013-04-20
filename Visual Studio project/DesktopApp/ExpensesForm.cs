@@ -82,14 +82,20 @@ namespace DesktopApp
 
             btnAddGas.Enabled = false;
             btnAddService.Enabled = false;
-            btnAddOther.Enabled = false;
+            btnAddOtherExpense.Enabled = false;
+
+            tableGas.DataSource = null;
+            tableService.DataSource = null;
+            tableOtherExpense.DataSource = null;
+
+            comboSelectCar.SelectedText = String.Empty;
         }
 
         private void enableElements()
         {
             btnAddGas.Enabled = true;
             btnAddService.Enabled = true;
-            btnAddOther.Enabled = true;
+            btnAddOtherExpense.Enabled = true;
         }
 
         private void reloadCarInfo()
@@ -101,6 +107,7 @@ namespace DesktopApp
             }
             lblCarName.Text = this.selectedCar.name;
             lblCarPrice.Text = this.selectedCar.cost.ToString();
+            lblCarYear.Text = this.selectedCar.boughtYear.ToString();
             lblCarTotal.Text = "TODO !!!";
             lblCarCosts.Text = "TODO !!!";
         }
@@ -197,9 +204,62 @@ namespace DesktopApp
             tableService.DataSource = table;
         }
 
+        private void reloadOtherExpense()
+        {
+            if (this.selectedCar == null)
+            {
+                MessageBox.Show("No car selected, other expense info can't be loaded.");
+                return;
+            }
+            OtherExpenseResponse otherExpenseResponse = carExpensesApp.getCarOtherExpenses(this.selectedCar.id);
+
+            if (otherExpenseResponse.success == false)
+            {
+                MessageBox.Show(otherExpenseResponse.message);
+                return;
+            }
+
+            DataTable table = new DataTable();
+
+            DataColumn colKm = new DataColumn("Km");
+            DataColumn colCost = new DataColumn("Cost");
+            DataColumn colDate = new DataColumn("Date");
+            DataColumn colDescription = new DataColumn("Description");
+
+            colKm.DataType = System.Type.GetType("System.Int32");
+            colCost.DataType = System.Type.GetType("System.Int32");
+            colDate.DataType = System.Type.GetType("System.DateTime");
+            colDescription.DataType = System.Type.GetType("System.String");
+
+            table.Columns.Add(colKm);
+            table.Columns.Add(colCost);
+            table.Columns.Add(colDate);
+            table.Columns.Add(colDescription);
+
+            foreach (OtherExpense otherExpense in otherExpenseResponse.otherExpenseList)
+            {
+                DataRow row = table.NewRow();
+
+                row[colKm] = otherExpense.km;
+                row[colCost] = otherExpense.cost;
+                row[colDate] = otherExpense.date;
+                row[colDescription] = otherExpense.description;
+
+                table.Rows.Add(row);
+            }
+            tableOtherExpense.DataSource = table;
+        }
+
         private void btnAddNewCar_Click(object sender, EventArgs e)
         {
-
+            using (AddNewCarForm addNewCarForm = new AddNewCarForm(carExpensesApp))
+            {
+                DialogResult dr = addNewCarForm.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    reloadUserCars();
+                }
+            }
         }
 
         private void comboSelectCar_SelectionChangeCommitted(object sender, EventArgs e)
@@ -208,7 +268,20 @@ namespace DesktopApp
             reloadCarInfo();
             reloadGas();
             reloadService();
+            reloadOtherExpense();
             enableElements();
+        }
+
+        private void btnAddGas_Click(object sender, EventArgs e)
+        {
+            using (AddGasForm addGasForm = new AddGasForm(carExpensesApp, selectedCar))
+            {
+                DialogResult dr = addGasForm.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    reloadGas();
+                }
+            }
         }
     }
 }

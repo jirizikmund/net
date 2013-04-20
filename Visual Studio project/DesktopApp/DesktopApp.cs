@@ -40,7 +40,7 @@ namespace DesktopApp
                 }
                 catch (CarExpensesException ex)
                 {
-                    showErrorDialog(ex.Message);
+                    MyMessage.ShowFatalError(ex.Message);
                 }
             }
         }
@@ -54,18 +54,9 @@ namespace DesktopApp
             }
             catch (CarExpensesException ex)
             {
-                showErrorDialog(ex.Message);
+                MyMessage.ShowFatalError(ex.Message);
                 success = false;
             }
-        }
-
-        private static void showErrorDialog(string message)
-        {
-            MessageBox.Show(message,
-                            "Car Expenses Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1);
         }
     }
 }

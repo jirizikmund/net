@@ -590,7 +590,7 @@ namespace zikmundj.CarExpenses
         /// <param name="carId">Identifikátor auta, pro které chceme jiné výdaje získat</param>
         /// <returns>Objekt <see cref="OtherExpenseResponse"/>, kde je uložen stav akce, zpráva a seznam oprav (při chybě null).</returns>
         /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
-        public OtherExpenseResponse getCarServices(int carId)
+        public OtherExpenseResponse getCarOtherExpenses(int carId)
         {
             if (notLogged()) return new OtherExpenseResponse(false, "You are NOT logged in.");
 

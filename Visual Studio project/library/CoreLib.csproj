@@ -46,12 +46,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\CarDAO.cs" />
+    <Compile Include="DAO\OtherExpenseDAO.cs" />
     <Compile Include="DAO\ServiceDAO.cs" />
     <Compile Include="DAO\GasDAO.cs" />
     <Compile Include="Object\Car.cs" />
     <Compile Include="Object\CarModel.cs" />
     <Compile Include="Class\Exception.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="Object\OtherExpense.cs" />
     <Compile Include="Object\Region.cs" />
     <Compile Include="Object\ServiceType.cs" />
     <Compile Include="Object\Gas.cs" />

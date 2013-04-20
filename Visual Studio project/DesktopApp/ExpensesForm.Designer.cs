@@ -37,48 +37,48 @@
             this.btnAddGas = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableGas = new System.Windows.Forms.DataGridView();
-            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.tableService = new System.Windows.Forms.DataGridView();
-            this.lblCarName = new System.Windows.Forms.Label();
-            this.lblCarYear_ = new System.Windows.Forms.Label();
-            this.lblCarPrice_ = new System.Windows.Forms.Label();
-            this.lblCarYear = new System.Windows.Forms.Label();
-            this.lblCarPrice = new System.Windows.Forms.Label();
-            this.lblGasCost_ = new System.Windows.Forms.Label();
-            this.lblGasCost = new System.Windows.Forms.Label();
-            this.lblServiceCost_ = new System.Windows.Forms.Label();
-            this.lblGasLiters_ = new System.Windows.Forms.Label();
-            this.lblServiceCost = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.lblGasLiters = new System.Windows.Forms.Label();
+            this.lblGasCost = new System.Windows.Forms.Label();
+            this.lblGasCost_ = new System.Windows.Forms.Label();
             this.lblGasCount_ = new System.Windows.Forms.Label();
+            this.lblGasLiters_ = new System.Windows.Forms.Label();
             this.lblGasCount = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblServiceCost = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblServiceCount = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblCarTotal_ = new System.Windows.Forms.Label();
-            this.lblCarCosts_ = new System.Windows.Forms.Label();
-            this.lblCarTotal = new System.Windows.Forms.Label();
-            this.lblCarCosts = new System.Windows.Forms.Label();
+            this.lblServiceCost_ = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblOtherCost = new System.Windows.Forms.Label();
             this.lblOtherCount_ = new System.Windows.Forms.Label();
             this.lblOtherCount = new System.Windows.Forms.Label();
             this.lblOtherCost_ = new System.Windows.Forms.Label();
-            this.tableOther = new System.Windows.Forms.DataGridView();
-            this.btnAddOther = new System.Windows.Forms.Button();
+            this.tableOtherExpense = new System.Windows.Forms.DataGridView();
+            this.btnAddOtherExpense = new System.Windows.Forms.Button();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.lblCarName = new System.Windows.Forms.Label();
+            this.lblCarYear_ = new System.Windows.Forms.Label();
+            this.lblCarPrice_ = new System.Windows.Forms.Label();
+            this.lblCarYear = new System.Windows.Forms.Label();
+            this.lblCarPrice = new System.Windows.Forms.Label();
+            this.lblCarTotal_ = new System.Windows.Forms.Label();
+            this.lblCarCosts_ = new System.Windows.Forms.Label();
+            this.lblCarTotal = new System.Windows.Forms.Label();
+            this.lblCarCosts = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableGas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tableService)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tableOther)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tableOtherExpense)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(16, 239);
+            this.btnLogout.Location = new System.Drawing.Point(16, 253);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(121, 23);
             this.btnLogout.TabIndex = 0;
@@ -107,7 +107,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(16, 268);
+            this.btnExit.Location = new System.Drawing.Point(16, 296);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(121, 23);
             this.btnExit.TabIndex = 0;
@@ -120,7 +120,7 @@
             this.btnAddService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAddService.Location = new System.Drawing.Point(224, 230);
             this.btnAddService.Name = "btnAddService";
-            this.btnAddService.Size = new System.Drawing.Size(99, 24);
+            this.btnAddService.Size = new System.Drawing.Size(90, 24);
             this.btnAddService.TabIndex = 2;
             this.btnAddService.Text = "Add service";
             this.btnAddService.UseVisualStyleBackColor = true;
@@ -130,10 +130,11 @@
             this.btnAddGas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAddGas.Location = new System.Drawing.Point(3, 230);
             this.btnAddGas.Name = "btnAddGas";
-            this.btnAddGas.Size = new System.Drawing.Size(104, 24);
+            this.btnAddGas.Size = new System.Drawing.Size(90, 24);
             this.btnAddGas.TabIndex = 2;
             this.btnAddGas.Text = "Add gas";
             this.btnAddGas.UseVisualStyleBackColor = true;
+            this.btnAddGas.Click += new System.EventHandler(this.btnAddGas_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -151,8 +152,8 @@
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnAddGas, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableOther, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnAddOther, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tableOtherExpense, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnAddOtherExpense, 2, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(155, 136);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
@@ -206,97 +207,21 @@
             this.tableService.Size = new System.Drawing.Size(215, 151);
             this.tableService.TabIndex = 4;
             // 
-            // lblCarName
+            // panel1
             // 
-            this.lblCarName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCarName.AutoEllipsis = true;
-            this.lblCarName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblCarName.Location = new System.Drawing.Point(153, 20);
-            this.lblCarName.Name = "lblCarName";
-            this.lblCarName.Size = new System.Drawing.Size(662, 29);
-            this.lblCarName.TabIndex = 7;
-            this.lblCarName.Text = "Škoda Octavia 1.9 TDI";
-            // 
-            // lblCarYear_
-            // 
-            this.lblCarYear_.Location = new System.Drawing.Point(155, 49);
-            this.lblCarYear_.Name = "lblCarYear_";
-            this.lblCarYear_.Size = new System.Drawing.Size(107, 17);
-            this.lblCarYear_.TabIndex = 7;
-            this.lblCarYear_.Text = "Bought year:";
-            // 
-            // lblCarPrice_
-            // 
-            this.lblCarPrice_.Location = new System.Drawing.Point(155, 66);
-            this.lblCarPrice_.Name = "lblCarPrice_";
-            this.lblCarPrice_.Size = new System.Drawing.Size(107, 17);
-            this.lblCarPrice_.TabIndex = 7;
-            this.lblCarPrice_.Text = "Price:";
-            // 
-            // lblCarYear
-            // 
-            this.lblCarYear.AutoSize = true;
-            this.lblCarYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblCarYear.Location = new System.Drawing.Point(268, 49);
-            this.lblCarYear.Name = "lblCarYear";
-            this.lblCarYear.Size = new System.Drawing.Size(44, 17);
-            this.lblCarYear.TabIndex = 8;
-            this.lblCarYear.Text = "2008";
-            // 
-            // lblCarPrice
-            // 
-            this.lblCarPrice.AutoSize = true;
-            this.lblCarPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblCarPrice.Location = new System.Drawing.Point(268, 66);
-            this.lblCarPrice.Name = "lblCarPrice";
-            this.lblCarPrice.Size = new System.Drawing.Size(78, 17);
-            this.lblCarPrice.TabIndex = 8;
-            this.lblCarPrice.Text = "135.500,-";
-            // 
-            // lblGasCost_
-            // 
-            this.lblGasCost_.Location = new System.Drawing.Point(-3, 41);
-            this.lblGasCost_.Name = "lblGasCost_";
-            this.lblGasCost_.Size = new System.Drawing.Size(107, 17);
-            this.lblGasCost_.TabIndex = 7;
-            this.lblGasCost_.Text = "Selected cost:";
-            // 
-            // lblGasCost
-            // 
-            this.lblGasCost.AutoSize = true;
-            this.lblGasCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblGasCost.Location = new System.Drawing.Point(110, 41);
-            this.lblGasCost.Name = "lblGasCost";
-            this.lblGasCost.Size = new System.Drawing.Size(78, 17);
-            this.lblGasCost.TabIndex = 8;
-            this.lblGasCost.Text = "132.234,-";
-            // 
-            // lblServiceCost_
-            // 
-            this.lblServiceCost_.Location = new System.Drawing.Point(-3, 41);
-            this.lblServiceCost_.Name = "lblServiceCost_";
-            this.lblServiceCost_.Size = new System.Drawing.Size(107, 17);
-            this.lblServiceCost_.TabIndex = 7;
-            this.lblServiceCost_.Text = "Selected cost:";
-            // 
-            // lblGasLiters_
-            // 
-            this.lblGasLiters_.Location = new System.Drawing.Point(-3, 24);
-            this.lblGasLiters_.Name = "lblGasLiters_";
-            this.lblGasLiters_.Size = new System.Drawing.Size(107, 17);
-            this.lblGasLiters_.TabIndex = 7;
-            this.lblGasLiters_.Text = "Selected liters:";
-            // 
-            // lblServiceCost
-            // 
-            this.lblServiceCost.AutoSize = true;
-            this.lblServiceCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblServiceCost.Location = new System.Drawing.Point(110, 41);
-            this.lblServiceCost.Name = "lblServiceCost";
-            this.lblServiceCost.Size = new System.Drawing.Size(78, 17);
-            this.lblServiceCost.TabIndex = 8;
-            this.lblServiceCost.Text = "132.234,-";
+            this.panel1.Controls.Add(this.lblGasLiters);
+            this.panel1.Controls.Add(this.lblGasCost);
+            this.panel1.Controls.Add(this.lblGasCost_);
+            this.panel1.Controls.Add(this.lblGasCount_);
+            this.panel1.Controls.Add(this.lblGasLiters_);
+            this.panel1.Controls.Add(this.lblGasCount);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(215, 64);
+            this.panel1.TabIndex = 5;
             // 
             // lblGasLiters
             // 
@@ -308,6 +233,24 @@
             this.lblGasLiters.TabIndex = 8;
             this.lblGasLiters.Text = "1.342";
             // 
+            // lblGasCost
+            // 
+            this.lblGasCost.AutoSize = true;
+            this.lblGasCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblGasCost.Location = new System.Drawing.Point(110, 41);
+            this.lblGasCost.Name = "lblGasCost";
+            this.lblGasCost.Size = new System.Drawing.Size(78, 17);
+            this.lblGasCost.TabIndex = 8;
+            this.lblGasCost.Text = "132.234,-";
+            // 
+            // lblGasCost_
+            // 
+            this.lblGasCost_.Location = new System.Drawing.Point(-3, 41);
+            this.lblGasCost_.Name = "lblGasCost_";
+            this.lblGasCost_.Size = new System.Drawing.Size(107, 17);
+            this.lblGasCost_.TabIndex = 7;
+            this.lblGasCost_.Text = "Selected cost:";
+            // 
             // lblGasCount_
             // 
             this.lblGasCount_.Location = new System.Drawing.Point(-3, 7);
@@ -315,6 +258,14 @@
             this.lblGasCount_.Size = new System.Drawing.Size(107, 17);
             this.lblGasCount_.TabIndex = 7;
             this.lblGasCount_.Text = "Selected:";
+            // 
+            // lblGasLiters_
+            // 
+            this.lblGasLiters_.Location = new System.Drawing.Point(-3, 24);
+            this.lblGasLiters_.Name = "lblGasLiters_";
+            this.lblGasLiters_.Size = new System.Drawing.Size(107, 17);
+            this.lblGasLiters_.TabIndex = 7;
+            this.lblGasLiters_.Text = "Selected liters:";
             // 
             // lblGasCount
             // 
@@ -325,6 +276,30 @@
             this.lblGasCount.Size = new System.Drawing.Size(26, 17);
             this.lblGasCount.TabIndex = 8;
             this.lblGasCount.Text = "43";
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.lblServiceCost);
+            this.panel2.Controls.Add(this.label11);
+            this.panel2.Controls.Add(this.lblServiceCount);
+            this.panel2.Controls.Add(this.lblServiceCost_);
+            this.panel2.Location = new System.Drawing.Point(224, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(215, 64);
+            this.panel2.TabIndex = 5;
+            // 
+            // lblServiceCost
+            // 
+            this.lblServiceCost.AutoSize = true;
+            this.lblServiceCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblServiceCost.Location = new System.Drawing.Point(110, 41);
+            this.lblServiceCost.Name = "lblServiceCost";
+            this.lblServiceCost.Size = new System.Drawing.Size(78, 17);
+            this.lblServiceCost.TabIndex = 8;
+            this.lblServiceCost.Text = "132.234,-";
             // 
             // label11
             // 
@@ -344,72 +319,13 @@
             this.lblServiceCount.TabIndex = 8;
             this.lblServiceCount.Text = "43";
             // 
-            // panel1
+            // lblServiceCost_
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.lblGasLiters);
-            this.panel1.Controls.Add(this.lblGasCost);
-            this.panel1.Controls.Add(this.lblGasCost_);
-            this.panel1.Controls.Add(this.lblGasCount_);
-            this.panel1.Controls.Add(this.lblGasLiters_);
-            this.panel1.Controls.Add(this.lblGasCount);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(215, 64);
-            this.panel1.TabIndex = 5;
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.lblServiceCost);
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.lblServiceCount);
-            this.panel2.Controls.Add(this.lblServiceCost_);
-            this.panel2.Location = new System.Drawing.Point(224, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(215, 64);
-            this.panel2.TabIndex = 5;
-            // 
-            // lblCarTotal_
-            // 
-            this.lblCarTotal_.Location = new System.Drawing.Point(376, 66);
-            this.lblCarTotal_.Name = "lblCarTotal_";
-            this.lblCarTotal_.Size = new System.Drawing.Size(107, 17);
-            this.lblCarTotal_.TabIndex = 7;
-            this.lblCarTotal_.Text = "Total:";
-            // 
-            // lblCarCosts_
-            // 
-            this.lblCarCosts_.Location = new System.Drawing.Point(376, 49);
-            this.lblCarCosts_.Name = "lblCarCosts_";
-            this.lblCarCosts_.Size = new System.Drawing.Size(107, 17);
-            this.lblCarCosts_.TabIndex = 7;
-            this.lblCarCosts_.Text = "Costs:";
-            // 
-            // lblCarTotal
-            // 
-            this.lblCarTotal.AutoSize = true;
-            this.lblCarTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblCarTotal.ForeColor = System.Drawing.Color.Crimson;
-            this.lblCarTotal.Location = new System.Drawing.Point(489, 66);
-            this.lblCarTotal.Name = "lblCarTotal";
-            this.lblCarTotal.Size = new System.Drawing.Size(92, 17);
-            this.lblCarTotal.TabIndex = 8;
-            this.lblCarTotal.Text = "1.233.322,-";
-            // 
-            // lblCarCosts
-            // 
-            this.lblCarCosts.AutoSize = true;
-            this.lblCarCosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblCarCosts.Location = new System.Drawing.Point(489, 49);
-            this.lblCarCosts.Name = "lblCarCosts";
-            this.lblCarCosts.Size = new System.Drawing.Size(78, 17);
-            this.lblCarCosts.TabIndex = 8;
-            this.lblCarCosts.Text = "135.500,-";
+            this.lblServiceCost_.Location = new System.Drawing.Point(-3, 41);
+            this.lblServiceCost_.Name = "lblServiceCost_";
+            this.lblServiceCost_.Size = new System.Drawing.Size(107, 17);
+            this.lblServiceCost_.TabIndex = 7;
+            this.lblServiceCost_.Text = "Selected cost:";
             // 
             // panel3
             // 
@@ -461,37 +377,122 @@
             this.lblOtherCost_.TabIndex = 7;
             this.lblOtherCost_.Text = "Selected cost:";
             // 
-            // tableOther
+            // tableOtherExpense
             // 
-            this.tableOther.AllowUserToAddRows = false;
-            this.tableOther.AllowUserToDeleteRows = false;
-            this.tableOther.AllowUserToOrderColumns = true;
-            this.tableOther.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableOtherExpense.AllowUserToAddRows = false;
+            this.tableOtherExpense.AllowUserToDeleteRows = false;
+            this.tableOtherExpense.AllowUserToOrderColumns = true;
+            this.tableOtherExpense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableOther.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.tableOther.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.tableOther.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.tableOther.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableOther.Location = new System.Drawing.Point(445, 73);
-            this.tableOther.Name = "tableOther";
-            this.tableOther.ReadOnly = true;
-            this.tableOther.RowHeadersVisible = false;
-            this.tableOther.RowHeadersWidth = 20;
-            this.tableOther.RowTemplate.Height = 24;
-            this.tableOther.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tableOther.Size = new System.Drawing.Size(217, 151);
-            this.tableOther.TabIndex = 4;
+            this.tableOtherExpense.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.tableOtherExpense.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.tableOtherExpense.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.tableOtherExpense.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableOtherExpense.Location = new System.Drawing.Point(445, 73);
+            this.tableOtherExpense.Name = "tableOtherExpense";
+            this.tableOtherExpense.ReadOnly = true;
+            this.tableOtherExpense.RowHeadersVisible = false;
+            this.tableOtherExpense.RowHeadersWidth = 20;
+            this.tableOtherExpense.RowTemplate.Height = 24;
+            this.tableOtherExpense.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tableOtherExpense.Size = new System.Drawing.Size(217, 151);
+            this.tableOtherExpense.TabIndex = 4;
             // 
-            // btnAddOther
+            // btnAddOtherExpense
             // 
-            this.btnAddOther.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddOther.Location = new System.Drawing.Point(445, 230);
-            this.btnAddOther.Name = "btnAddOther";
-            this.btnAddOther.Size = new System.Drawing.Size(99, 24);
-            this.btnAddOther.TabIndex = 2;
-            this.btnAddOther.Text = "Add service";
-            this.btnAddOther.UseVisualStyleBackColor = true;
+            this.btnAddOtherExpense.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddOtherExpense.Location = new System.Drawing.Point(445, 230);
+            this.btnAddOtherExpense.Name = "btnAddOtherExpense";
+            this.btnAddOtherExpense.Size = new System.Drawing.Size(90, 24);
+            this.btnAddOtherExpense.TabIndex = 2;
+            this.btnAddOtherExpense.Text = "Add other";
+            this.btnAddOtherExpense.UseVisualStyleBackColor = true;
+            // 
+            // lblCarName
+            // 
+            this.lblCarName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCarName.AutoEllipsis = true;
+            this.lblCarName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblCarName.Location = new System.Drawing.Point(153, 20);
+            this.lblCarName.Name = "lblCarName";
+            this.lblCarName.Size = new System.Drawing.Size(662, 29);
+            this.lblCarName.TabIndex = 7;
+            this.lblCarName.Text = "Škoda Octavia 1.9 TDI";
+            // 
+            // lblCarYear_
+            // 
+            this.lblCarYear_.Location = new System.Drawing.Point(155, 49);
+            this.lblCarYear_.Name = "lblCarYear_";
+            this.lblCarYear_.Size = new System.Drawing.Size(107, 17);
+            this.lblCarYear_.TabIndex = 7;
+            this.lblCarYear_.Text = "Bought year:";
+            // 
+            // lblCarPrice_
+            // 
+            this.lblCarPrice_.Location = new System.Drawing.Point(155, 66);
+            this.lblCarPrice_.Name = "lblCarPrice_";
+            this.lblCarPrice_.Size = new System.Drawing.Size(107, 17);
+            this.lblCarPrice_.TabIndex = 7;
+            this.lblCarPrice_.Text = "Price:";
+            // 
+            // lblCarYear
+            // 
+            this.lblCarYear.AutoSize = true;
+            this.lblCarYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblCarYear.Location = new System.Drawing.Point(268, 49);
+            this.lblCarYear.Name = "lblCarYear";
+            this.lblCarYear.Size = new System.Drawing.Size(44, 17);
+            this.lblCarYear.TabIndex = 8;
+            this.lblCarYear.Text = "2008";
+            // 
+            // lblCarPrice
+            // 
+            this.lblCarPrice.AutoSize = true;
+            this.lblCarPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblCarPrice.Location = new System.Drawing.Point(268, 66);
+            this.lblCarPrice.Name = "lblCarPrice";
+            this.lblCarPrice.Size = new System.Drawing.Size(78, 17);
+            this.lblCarPrice.TabIndex = 8;
+            this.lblCarPrice.Text = "135.500,-";
+            // 
+            // lblCarTotal_
+            // 
+            this.lblCarTotal_.Location = new System.Drawing.Point(376, 66);
+            this.lblCarTotal_.Name = "lblCarTotal_";
+            this.lblCarTotal_.Size = new System.Drawing.Size(107, 17);
+            this.lblCarTotal_.TabIndex = 7;
+            this.lblCarTotal_.Text = "Total:";
+            // 
+            // lblCarCosts_
+            // 
+            this.lblCarCosts_.Location = new System.Drawing.Point(376, 49);
+            this.lblCarCosts_.Name = "lblCarCosts_";
+            this.lblCarCosts_.Size = new System.Drawing.Size(107, 17);
+            this.lblCarCosts_.TabIndex = 7;
+            this.lblCarCosts_.Text = "Costs:";
+            // 
+            // lblCarTotal
+            // 
+            this.lblCarTotal.AutoSize = true;
+            this.lblCarTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblCarTotal.ForeColor = System.Drawing.Color.Crimson;
+            this.lblCarTotal.Location = new System.Drawing.Point(489, 66);
+            this.lblCarTotal.Name = "lblCarTotal";
+            this.lblCarTotal.Size = new System.Drawing.Size(92, 17);
+            this.lblCarTotal.TabIndex = 8;
+            this.lblCarTotal.Text = "1.233.322,-";
+            // 
+            // lblCarCosts
+            // 
+            this.lblCarCosts.AutoSize = true;
+            this.lblCarCosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblCarCosts.Location = new System.Drawing.Point(489, 49);
+            this.lblCarCosts.Name = "lblCarCosts";
+            this.lblCarCosts.Size = new System.Drawing.Size(78, 17);
+            this.lblCarCosts.TabIndex = 8;
+            this.lblCarCosts.Text = "135.500,-";
             // 
             // ExpensesForm
             // 
@@ -527,7 +528,7 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tableOther)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tableOtherExpense)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -571,7 +572,7 @@
         private System.Windows.Forms.Label lblOtherCount_;
         private System.Windows.Forms.Label lblOtherCount;
         private System.Windows.Forms.Label lblOtherCost_;
-        private System.Windows.Forms.DataGridView tableOther;
-        private System.Windows.Forms.Button btnAddOther;
+        private System.Windows.Forms.DataGridView tableOtherExpense;
+        private System.Windows.Forms.Button btnAddOtherExpense;
     }
 }
