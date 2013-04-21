@@ -26,5 +26,14 @@ namespace DesktopApp
                             MessageBoxIcon.Error,
                             MessageBoxDefaultButton.Button1);
         }
+
+        public static void ShowInfo(string message)
+        {
+            MessageBox.Show(message,
+                            "Car Expenses",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information,
+                            MessageBoxDefaultButton.Button1);
+        }
     }
 }

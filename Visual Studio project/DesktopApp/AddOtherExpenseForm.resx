@@ -117,29 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="clipboard-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\clipboard-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="table-export-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\table-export-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="plus-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\plus-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="plus-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\plus-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="xml-export-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\xml-export-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logout-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\logout-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="exit-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\exit-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8B////Af///wH///8B////AQ2ILmMIoC7/CKEu/wmeLv8Lky7/DYguY////wH///8B////Af//
+        /wH///8B////Af///wH///8B////Af///wENhy2rAcUv/wDJL/8AyC//BbAv/w2HLav///8B////Af//
+        /wH///8B////Af///wH///8B////Af///wH///8BDYctqwDIMP8AyTD/AMsw/wO6L/8Nhy2r////Af//
+        /wH///8B////Af///wH///8B////Af///wH///8B////AQ2HLasAxjD/AcQw/wDJMP8Cvi//DYctq///
+        /wH///8B////Af///wH///8B////Af///wH///8B////Af///wENhy2rFshA/wS/Mf8BxDD/AcMv/w2H
+        Lav///8B////Af///wH///8B////AQ6ILk0Nhy2rDYctqw2HLasNhy2rDogu4zTNWP8Zv0H/Ar8v/wDF
+        MP8OiC7jDYctqw2HLasNhy2rDYctqw2ILmMspkv/a9GE/2PPff9cznj/VM5x/03ObP9GyWX/P8Vg/xvA
+        Qv8EwTH/AMUw/wHDL/8Cvi//A7ov/wWwL/8Lki7/Mp9O/3nEjP9xwIX/asGA/2HBef9awnT/UcNt/0rE
+        aP8+xV7/HMFE/wK/L/8BxDD/AMkw/wDLMP8AyC//CZsu/zagUf+Fx5b/fsOP/3fCiv9uw4P/aMN+/1/E
+        eP9YxHL/T8Zs/0jHZv8ewUX/Bb8x/wHEMP8AyTD/AMkv/wmcLv83qVT/jNmf/4TVmP991JP/ddOM/2/S
+        h/9ny4D/YsV7/1nGdP9RzG//Q9Bl/x7JR/8AxjD/AMgw/wHEL/8JnC7/DYguYw2HLasNhy2rDYctqw2H
+        Lasikj/jc9SK/2/Ghf9nx37/XdJ5/w6ILuMNhy2rDYctqw2HLasNhy2rDYguY////wH///8B////Af//
+        /wH///8BK5ZHq37Wk/96x43/cceH/2jTgv8Nhy2r////Af///wH///8B////Af///wH///8B////Af//
+        /wH///8B////AS6YSquK2J3/h8mX/37Jkf901oz/DYctq////wH///8B////Af///wH///8B////Af//
+        /wH///8B////Af///wExmUyrlNul/5HLoP+Iy5n/f9eU/w2HLav///8B////Af///wH///8B////Af//
+        /wH///8B////Af///wH///8BNJpOq6DfsP+d0ar/lNCj/4vbn/8Nhy2r////Af///wH///8B////Af//
+        /wH///8B////Af///wH///8B////ASSSQWM/q1r/PqNY/zujVv83qVX/DYguY////wH///8B////Af//
+        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//w==
+</value>
   </data>
 </root>

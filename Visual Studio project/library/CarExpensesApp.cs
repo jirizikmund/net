@@ -542,7 +542,7 @@ namespace zikmundj.CarExpenses
         /// <param name="date">Datum jiného výdaje</param>
         /// <returns>Objekt <see cref="Response"/>, kde je uložen stav akce a zpráva.</returns>
         /// <exception cref="CarExpensesException">Při chybě aplikace</exception>
-        public Response addService(int carId, int km, int cost, string description, DateTime date)
+        public Response addOtherService(int carId, int km, int cost, string description, DateTime date)
         {
             if (notLogged()) return new Response(false, "You are NOT logged in.");
 

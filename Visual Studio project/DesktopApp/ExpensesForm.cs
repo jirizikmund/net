@@ -17,6 +17,13 @@ namespace DesktopApp
         private User user;
         private Car selectedCar;
 
+        private int totalGasCost = 0;
+        private int totalServiceCost = 0;
+        private int totalOtherCost = 0;
+
+        //public const String currencyFormat = "#,##0.00 $;#,##0.00'-  $';0 $";
+        public const String currencyFormat = "N2";
+
         public ExpensesForm(CarExpensesApp carExpensesApp, User user)
         {
             InitializeComponent();
@@ -55,6 +62,7 @@ namespace DesktopApp
             CarResponse carResponse = carExpensesApp.getUserCars();
             if (carResponse.success)
             {
+                comboSelectCar.Items.Clear();
                 foreach (Car car in carResponse.carList)
                 {
                     comboSelectCar.Items.Add(car);
@@ -64,7 +72,7 @@ namespace DesktopApp
 
         private void disableElements()
         {
-            lblCarName.Text = "<< select car";
+            lblCarName.Text = "";
             lblCarYear.Text = "";
             lblCarPrice.Text = "";
             lblCarCosts.Text = "";
@@ -83,6 +91,7 @@ namespace DesktopApp
             btnAddGas.Enabled = false;
             btnAddService.Enabled = false;
             btnAddOtherExpense.Enabled = false;
+            btnCopy.Enabled = false;
 
             tableGas.DataSource = null;
             tableService.DataSource = null;
@@ -96,6 +105,7 @@ namespace DesktopApp
             btnAddGas.Enabled = true;
             btnAddService.Enabled = true;
             btnAddOtherExpense.Enabled = true;
+            btnCopy.Enabled = true;
         }
 
         private void reloadCarInfo()
@@ -106,10 +116,10 @@ namespace DesktopApp
                 return;
             }
             lblCarName.Text = this.selectedCar.name;
-            lblCarPrice.Text = this.selectedCar.cost.ToString();
+            lblCarPrice.Text = this.selectedCar.cost.ToString(currencyFormat);
             lblCarYear.Text = this.selectedCar.boughtYear.ToString();
-            lblCarTotal.Text = "TODO !!!";
-            lblCarCosts.Text = "TODO !!!";
+            lblCarTotal.Text = "";
+            lblCarCosts.Text = "";
         }
 
         private void reloadGas()
@@ -129,25 +139,32 @@ namespace DesktopApp
 
             DataTable table = new DataTable();
 
+            DataColumn colID = new DataColumn("ID");
             DataColumn colKm = new DataColumn("Km");
             DataColumn colLiters = new DataColumn("Liters");
             DataColumn colCost = new DataColumn("Cost");
             DataColumn colDate = new DataColumn("Date");
 
+            colID.DataType = System.Type.GetType("System.Int32");
             colKm.DataType = System.Type.GetType("System.Int32");
             colLiters.DataType = System.Type.GetType("System.Double");
             colCost.DataType = System.Type.GetType("System.Int32");
             colDate.DataType = System.Type.GetType("System.DateTime");
 
+            table.Columns.Add(colID);
             table.Columns.Add(colKm);
             table.Columns.Add(colLiters);
             table.Columns.Add(colCost);
             table.Columns.Add(colDate);
-                
+
+            this.totalGasCost = 0;
             foreach (Gas gas in gasResponse.gasList)
             {
+                this.totalGasCost += gas.cost;
+
                 DataRow row = table.NewRow();
 
+                row[colID] = gas.id;
                 row[colKm] = gas.km;
                 row[colLiters] = gas.mililiters / 1000;
                 row[colCost] = gas.cost;
@@ -156,6 +173,10 @@ namespace DesktopApp
                 table.Rows.Add(row);
             }
             tableGas.DataSource = table;
+            tableGas.Columns["ID"].Visible = false;
+            selectAllRows(tableGas);
+
+            reloadTotalCarCost();
         }
 
         private void reloadService()
@@ -175,25 +196,32 @@ namespace DesktopApp
 
             DataTable table = new DataTable();
 
+            DataColumn colID = new DataColumn("ID");
             DataColumn colKm = new DataColumn("Km");
             DataColumn colCost = new DataColumn("Cost");
             DataColumn colDate = new DataColumn("Date");
             DataColumn colDescription = new DataColumn("Description");
 
+            colID.DataType = System.Type.GetType("System.Int32");
             colKm.DataType = System.Type.GetType("System.Int32");
             colCost.DataType = System.Type.GetType("System.Int32");
             colDate.DataType = System.Type.GetType("System.DateTime");
             colDescription.DataType = System.Type.GetType("System.String");
 
+            table.Columns.Add(colID);
             table.Columns.Add(colKm);
             table.Columns.Add(colCost);
             table.Columns.Add(colDate);
             table.Columns.Add(colDescription);
 
+            this.totalServiceCost = 0;
             foreach (Service service in serviceResponse.serviceList)
             {
+                this.totalServiceCost += service.cost;
+
                 DataRow row = table.NewRow();
 
+                row[colID] = service.id;
                 row[colKm] = service.km;
                 row[colCost] = service.cost;
                 row[colDate] = service.date;
@@ -202,6 +230,10 @@ namespace DesktopApp
                 table.Rows.Add(row);
             }
             tableService.DataSource = table;
+            tableService.Columns["ID"].Visible = false;
+            selectAllRows(tableService);
+
+            reloadTotalCarCost();
         }
 
         private void reloadOtherExpense()
@@ -221,25 +253,32 @@ namespace DesktopApp
 
             DataTable table = new DataTable();
 
+            DataColumn colID = new DataColumn("ID");
             DataColumn colKm = new DataColumn("Km");
             DataColumn colCost = new DataColumn("Cost");
             DataColumn colDate = new DataColumn("Date");
             DataColumn colDescription = new DataColumn("Description");
 
+            colID.DataType = System.Type.GetType("System.Int32");
             colKm.DataType = System.Type.GetType("System.Int32");
             colCost.DataType = System.Type.GetType("System.Int32");
             colDate.DataType = System.Type.GetType("System.DateTime");
             colDescription.DataType = System.Type.GetType("System.String");
 
+            table.Columns.Add(colID);
             table.Columns.Add(colKm);
             table.Columns.Add(colCost);
             table.Columns.Add(colDate);
             table.Columns.Add(colDescription);
 
+            this.totalOtherCost = 0;
             foreach (OtherExpense otherExpense in otherExpenseResponse.otherExpenseList)
             {
+                this.totalOtherCost += otherExpense.cost;
+
                 DataRow row = table.NewRow();
 
+                row[colID] = otherExpense.id;
                 row[colKm] = otherExpense.km;
                 row[colCost] = otherExpense.cost;
                 row[colDate] = otherExpense.date;
@@ -248,6 +287,10 @@ namespace DesktopApp
                 table.Rows.Add(row);
             }
             tableOtherExpense.DataSource = table;
+            tableOtherExpense.Columns["ID"].Visible = false;
+            selectAllRows(tableService);
+            reloadTotalCarCost();
+
         }
 
         private void btnAddNewCar_Click(object sender, EventArgs e)
@@ -282,6 +325,137 @@ namespace DesktopApp
                     reloadGas();
                 }
             }
+        }
+
+        private void btnAddService_Click(object sender, EventArgs e)
+        {
+            using (AddServiceForm addServiceForm = new AddServiceForm(carExpensesApp, selectedCar))
+            {
+                DialogResult dr = addServiceForm.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    reloadService();
+                }
+            }
+        }
+
+        private void btnAddOtherExpense_Click(object sender, EventArgs e)
+        {
+            using (AddOtherExpenseForm addOtherExpenseForm = new AddOtherExpenseForm(carExpensesApp, selectedCar))
+            {
+                DialogResult dr = addOtherExpenseForm.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    reloadOtherExpense();
+                }
+            }
+        }
+
+        private void tableGas_SelectionChanged(object sender, EventArgs e)
+        {
+            int selectedRowCount = tableGas.Rows.GetRowCount(DataGridViewElementStates.Selected);
+
+            if (tableGas.AreAllCellsSelected(false))
+                lblGasCount.Text = "ALL";
+            else
+                lblGasCount.Text = selectedRowCount.ToString() + " / " + tableGas.RowCount;
+
+            int totalCost = 0;
+            int totalLiters = 0;
+            for (int i = 0; i < selectedRowCount; i++)
+            {
+                int pom;
+                if (Int32.TryParse(tableGas.SelectedRows[i].Cells["Cost"].Value.ToString(), out pom))
+                {
+                    totalCost += pom;
+                }
+                if (Int32.TryParse(tableGas.SelectedRows[i].Cells["Liters"].Value.ToString(), out pom))
+                {
+                    totalLiters += pom;
+                }
+            }
+            lblGasCost.Text = totalCost.ToString(currencyFormat);
+            lblGasLiters.Text = totalLiters.ToString();
+        }
+
+        private void selectAllRows(DataGridView table)
+        {
+            int rowCount = table.RowCount;
+            for (int i = 0; i < rowCount; i++)
+            {
+                table.Rows[i].Selected = true;
+            }
+        }
+
+        private void reloadTotalCarCost()
+        {
+            int totalCost = totalGasCost + totalOtherCost + totalServiceCost;
+            lblCarCosts.Text = totalCost.ToString(currencyFormat);
+            lblCarTotal.Text = (totalCost + selectedCar.cost).ToString(currencyFormat);
+        }
+
+        private void tableService_SelectionChanged(object sender, EventArgs e)
+        {
+            int selectedRowCount = tableService.Rows.GetRowCount(DataGridViewElementStates.Selected);
+
+            if (tableService.AreAllCellsSelected(false))
+                lblServiceCount.Text = "ALL";
+            else
+                lblServiceCount.Text = selectedRowCount.ToString() + " / " + tableService.RowCount;
+
+            int totalCost = 0;
+            for (int i = 0; i < selectedRowCount; i++)
+            {
+                int pom;
+                if (Int32.TryParse(tableService.SelectedRows[i].Cells["Cost"].Value.ToString(), out pom))
+                {
+                    totalCost += pom;
+                }
+            }
+            lblServiceCost.Text = totalCost.ToString(currencyFormat);
+        }
+
+        private void tableOtherExpense_SelectionChanged(object sender, EventArgs e)
+        {
+            int selectedRowCount = tableOtherExpense.Rows.GetRowCount(DataGridViewElementStates.Selected);
+
+            if (tableOtherExpense.AreAllCellsSelected(false))
+                lblOtherCount.Text = "ALL";
+            else
+                lblOtherCount.Text = selectedRowCount.ToString() + " / " + tableOtherExpense.RowCount;
+
+            int totalCost = 0;
+            for (int i = 0; i < selectedRowCount; i++)
+            {
+                int pom;
+                if (Int32.TryParse(tableOtherExpense.SelectedRows[i].Cells["Cost"].Value.ToString(), out pom))
+                {
+                    totalCost += pom;
+                }
+            }
+            lblOtherCost.Text = totalCost.ToString(currencyFormat);
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            if (selectedCar == null)
+            {
+                MyMessage.ShowError("No car selected, info can't be copied to clipboard.");
+                return;
+            }
+            string toClipboard = lblCarName.Text;
+            toClipboard += ", bought " + lblCarYear.Text;
+            toClipboard += ", price " + lblCarPrice.Text;
+            toClipboard += ", cost " + lblCarCosts.Text;
+            toClipboard += ", total " + lblCarTotal.Text + ".";
+            Clipboard.SetText(toClipboard);
+
+            MyMessage.ShowInfo("Info about car was copied to clipboard");
+        }
+
+        private void btnExportGas_Click(object sender, EventArgs e)
+        {
+            XmlExport.exportToXml(carExpensesApp);
         }
     }
 }

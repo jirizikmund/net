@@ -48,7 +48,7 @@
             this.btnAddGas.Location = new System.Drawing.Point(53, 191);
             this.btnAddGas.Name = "btnAddGas";
             this.btnAddGas.Size = new System.Drawing.Size(75, 23);
-            this.btnAddGas.TabIndex = 4;
+            this.btnAddGas.TabIndex = 5;
             this.btnAddGas.Text = "Add gas";
             this.btnAddGas.UseVisualStyleBackColor = true;
             this.btnAddGas.Click += new System.EventHandler(this.btnAddGas_Click);
@@ -59,7 +59,7 @@
             this.btnCancel.Location = new System.Drawing.Point(168, 191);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 

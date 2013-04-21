@@ -11,31 +11,31 @@ using zikmundj.CarExpenses;
 
 namespace DesktopApp
 {
-    public partial class AddGasForm : Form
+    public partial class AddServiceForm : Form
     {
         private CarExpensesApp carExpensesApp;
         private Car car;
 
-        public AddGasForm(CarExpensesApp carExpensesApp, Car car)
+        public AddServiceForm(CarExpensesApp carExpensesApp, Car car)
         {
             InitializeComponent();
             this.carExpensesApp = carExpensesApp;
             this.car = car;
         }
 
-        private void btnAddGas_Click(object sender, EventArgs e)
+        private void btnAddService_Click(object sender, EventArgs e)
         {
-            if (addGas())
+            if (addService())
             {
                 this.DialogResult = DialogResult.OK;
             }
         }
 
-        private bool addGas()
+        private bool addService()
         {
             int km = 0;
-            int liters = 0;
             int cost = 0;
+            int serviceTypeId = 0;
             DateTime date;
 
             errorProvider.Clear();
@@ -46,9 +46,9 @@ namespace DesktopApp
                 return false;
             }
 
-            if (int.TryParse(txtLitres.Text, out liters) == false)
+            if (txtDescription.Text == String.Empty)
             {
-                errorProvider.SetError(txtLitres, "Liters must be a number.");
+                errorProvider.SetError(txtDescription, "Description can't be empty.");
                 return false;
             }
 
@@ -58,13 +58,13 @@ namespace DesktopApp
                 return false;
             }
 
-            if (DateTime.TryParse(datePicker.Text, out date) == false)
+            if (DateTime.TryParse(txtDate.Text, out date) == false)
             {
-                errorProvider.SetError(datePicker, "Date has an invalid format.");
+                errorProvider.SetError(txtDate, "Date has an invalid format.");
                 return false;
             }
 
-            Response response = carExpensesApp.addGas(car.id,km,liters, cost, date);
+            Response response = carExpensesApp.addService(car.id, km, cost, serviceTypeId,txtDescription.Text, date);
 
             if (response.success == false)
             {
