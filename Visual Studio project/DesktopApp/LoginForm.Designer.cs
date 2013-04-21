@@ -1,4 +1,4 @@
-﻿namespace DesktopApp
+﻿namespace zikmundj.DesktopApp
 {
     partial class LoginForm
     {
@@ -42,7 +42,6 @@
             this.txtLogin.Name = "txtLogin";
             this.txtLogin.Size = new System.Drawing.Size(100, 22);
             this.txtLogin.TabIndex = 1;
-            this.txtLogin.Text = "jirka";
             // 
             // txtPassword
             // 
@@ -51,11 +50,10 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(100, 22);
             this.txtPassword.TabIndex = 2;
-            this.txtPassword.Text = "heslo";
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(51, 161);
+            this.btnLogin.Location = new System.Drawing.Point(44, 161);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 3;
@@ -65,6 +63,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(160, 161);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);

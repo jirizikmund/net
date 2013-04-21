@@ -7,10 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 using zikmundj.CarExpenses;
 
-namespace DesktopApp
+namespace zikmundj.DesktopApp
 {
+    /// <summary>
+    /// Hlavní okno aplikace s přehledem o autech a výdajích
+    /// </summary>
     public partial class ExpensesForm : Form
     {
         private CarExpensesApp carExpensesApp;
@@ -21,10 +25,18 @@ namespace DesktopApp
         private int totalServiceCost = 0;
         private int totalOtherCost = 0;
 
+        private string exportMessage;
+        private bool exportSuccess;
+
         //public const String currencyFormat = "#,##0.00 $;#,##0.00'-  $';0 $";
         //public const String currencyFormat = "N2";
         public const String currencyFormat = "C";
 
+        /// <summary>
+        /// Konstruktor okna
+        /// </summary>
+        /// <param name="carExpensesApp">Instance jádra aplikace</param>
+        /// <param name="user">Aktuálně přihlášený uživatel</param>
         public ExpensesForm(CarExpensesApp carExpensesApp, User user)
         {
             InitializeComponent();
@@ -37,23 +49,9 @@ namespace DesktopApp
             reloadUserCars();
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            carExpensesApp.logout();
-            this.DialogResult = DialogResult.Abort;
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void ExpensesForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            carExpensesApp.logout();
-            this.DialogResult = DialogResult.Abort;
-        }
-
+        /// <summary>
+        /// Načte uživatelovo auta z databáze a vypíše do comboBoxu
+        /// </summary>
         private void reloadUserCars()
         {
             CarResponse carResponse = carExpensesApp.getUserCars();
@@ -68,6 +66,9 @@ namespace DesktopApp
             btnExport.Enabled = carResponse.carList.Count > 1;
         }
 
+        /// <summary>
+        /// Deaktivuje všechny potřebné prvky v okně
+        /// </summary>
         private void disableElements()
         {
             lblCarName.Text = "";
@@ -110,6 +111,9 @@ namespace DesktopApp
             tableOtherExpense.DataSource = null;
         }
 
+        /// <summary>
+        /// Aktivuje všechny potřebné prvky v okně
+        /// </summary>
         private void enableElements()
         {
             lblNoCarSelected.Visible = false;
@@ -134,6 +138,9 @@ namespace DesktopApp
             btnCopy.Visible = true;
         }
 
+        /// <summary>
+        /// Vypíše shrnující údaje o vybraném autě
+        /// </summary>
         private void reloadCarInfo()
         {
             if (this.selectedCar == null)
@@ -148,6 +155,9 @@ namespace DesktopApp
             lblCarCosts.Text = "";
         }
 
+        /// <summary>
+        /// Načte údaje o banzínu z databáze a vypíše je do tabulky
+        /// </summary>
         private void reloadGas()
         {
             if (this.selectedCar == null)
@@ -205,6 +215,9 @@ namespace DesktopApp
             reloadTotalCarCost();
         }
 
+        /// <summary>
+        /// Načte údaje o opravách z databáze a vypíše je do tabulky
+        /// </summary>
         private void reloadService()
         {
             if (this.selectedCar == null)
@@ -262,6 +275,9 @@ namespace DesktopApp
             reloadTotalCarCost();
         }
 
+        /// <summary>
+        /// Načte údaje o jiných výdajích z databáze a vypíše je do tabulky
+        /// </summary>
         private void reloadOtherExpense()
         {
             if (this.selectedCar == null)
@@ -316,7 +332,42 @@ namespace DesktopApp
             tableOtherExpense.Columns["ID"].Visible = false;
             selectAllRows(tableService);
             reloadTotalCarCost();
+        }
 
+        /// <summary>
+        /// Vybere všechny řádky v dané tabulce
+        /// </summary>
+        /// <param name="table">Tabulka, kde mají být vybrány řádky</param>
+        private void selectAllRows(DataGridView table)
+        {
+            int rowCount = table.RowCount;
+            for (int i = 0; i < rowCount; i++)
+            {
+                table.Rows[i].Selected = true;
+            }
+        }
+
+        /// <summary>
+        /// Reload celkových údajů o aute
+        /// </summary>
+        private void reloadTotalCarCost()
+        {
+            int totalCost = totalGasCost + totalOtherCost + totalServiceCost;
+            lblCarCosts.Text = totalCost.ToString(currencyFormat);
+            lblCarTotal.Text = (totalCost + selectedCar.cost).ToString(currencyFormat);
+        }
+
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            carExpensesApp.logout();
+            this.DialogResult = DialogResult.Abort;
+        }
+
+        private void ExpensesForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            carExpensesApp.logout();
+            this.DialogResult = DialogResult.Abort;
         }
 
         private void btnAddNewCar_Click(object sender, EventArgs e)
@@ -404,22 +455,6 @@ namespace DesktopApp
             lblGasLiters.Text = totalLiters.ToString();
         }
 
-        private void selectAllRows(DataGridView table)
-        {
-            int rowCount = table.RowCount;
-            for (int i = 0; i < rowCount; i++)
-            {
-                table.Rows[i].Selected = true;
-            }
-        }
-
-        private void reloadTotalCarCost()
-        {
-            int totalCost = totalGasCost + totalOtherCost + totalServiceCost;
-            lblCarCosts.Text = totalCost.ToString(currencyFormat);
-            lblCarTotal.Text = (totalCost + selectedCar.cost).ToString(currencyFormat);
-        }
-
         private void tableService_SelectionChanged(object sender, EventArgs e)
         {
             int selectedRowCount = tableService.Rows.GetRowCount(DataGridViewElementStates.Selected);
@@ -466,7 +501,7 @@ namespace DesktopApp
         {
             if (selectedCar == null)
             {
-                MyMessage.ShowError("No car selected, info can't be copied to clipboard.");
+                CarExpenseMessage.ShowError("No car selected, info can't be copied to clipboard.");
                 return;
             }
             string toClipboard = lblCarName.Text;
@@ -476,18 +511,44 @@ namespace DesktopApp
             toClipboard += ", total " + lblCarTotal.Text + ".";
             Clipboard.SetText(toClipboard);
 
-            MyMessage.ShowInfo("Info about car was copied to clipboard");
+            CarExpenseMessage.ShowInfo("Info about car was copied to clipboard");
         }
 
         private void btnExportGas_Click(object sender, EventArgs e)
         {
-            string fileName = XmlExport.exportToXml(carExpensesApp);
-            MyMessage.ShowInfo("Your export was saved to file " + fileName);
+            InitForm initForm = new InitForm("Exporting to XML...");
+            initForm.Show();
+
+            Thread aThread = new Thread(new ThreadStart(exportToXmlThread));
+            aThread.Start();
+            aThread.Join();
+
+            initForm.Close();
+
+            if (exportSuccess)
+                CarExpenseMessage.ShowInfo(exportMessage);
+            else
+                CarExpenseMessage.ShowError(exportMessage);
+        }
+
+        private void exportToXmlThread()
+        { 
+            try
+            {
+                string fileName = XmlExport.exportToXml(carExpensesApp);
+                exportMessage = "Your export was saved to file " + fileName;
+                exportSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                exportMessage = ex.Message;
+                exportSuccess = false;
+            }
         }
 
         private void btnExit_Click_1(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you really want to exit Car Expenses?", "Exit Car Expenses", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if( CarExpenseMessage.ShowQuestion("Do you really want to exit Car Expenses?") == true)
             {
                 carExpensesApp.logout();
                 Application.Exit();

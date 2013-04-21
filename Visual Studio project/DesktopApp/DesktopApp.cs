@@ -6,8 +6,11 @@ using System.Windows.Forms;
 using zikmundj.CarExpenses;
 using System.Threading;
 
-namespace DesktopApp
+namespace zikmundj.DesktopApp
 {
+    /// <summary>
+    /// Desktopový klient aplikace CarExpenses
+    /// </summary>
     static class DesktopApp
     {
 
@@ -23,7 +26,7 @@ namespace DesktopApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            InitForm initForm = new InitForm();
+            InitForm initForm = new InitForm("Initialization application...");
             initForm.Show();
 
             Thread aThread = new Thread(new ThreadStart(initCarExpensesApp));
@@ -40,7 +43,7 @@ namespace DesktopApp
                 }
                 catch (CarExpensesException ex)
                 {
-                    MyMessage.ShowFatalError(ex.Message);
+                    CarExpenseMessage.ShowFatalError(ex.Message);
                 }
             }
         }
@@ -54,7 +57,7 @@ namespace DesktopApp
             }
             catch (CarExpensesException ex)
             {
-                MyMessage.ShowFatalError(ex.Message);
+                CarExpenseMessage.ShowFatalError(ex.Message);
                 success = false;
             }
         }

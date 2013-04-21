@@ -9,13 +9,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using zikmundj.CarExpenses;
 
-namespace DesktopApp
+namespace zikmundj.DesktopApp
 {
+    /// <summary>
+    /// Fomrulář pro přidání jiného výdaje
+    /// </summary>
     public partial class AddOtherExpenseForm : Form
     {
         private CarExpensesApp carExpensesApp;
         private Car car;
 
+        /// <summary>
+        /// Konstruktor okna
+        /// </summary>
+        /// <param name="carExpensesApp">Instance jádra aplikace</param>
+        /// <param name="car">Auto, ke kterému se výdaj přidává</param>
         public AddOtherExpenseForm(CarExpensesApp carExpensesApp, Car car)
         {
             InitializeComponent();
@@ -23,14 +31,9 @@ namespace DesktopApp
             this.car = car;
         }
 
-        private void btnAddExpense_Click(object sender, EventArgs e)
-        {
-            if (addOtherExpense())
-            {
-                this.DialogResult = DialogResult.OK;
-            }
-        }
-
+        /// <summary>
+        /// Validace údajů ve formuláři a přidání jiného výdaje
+        /// </summary>
         private bool addOtherExpense()
         {
             int km = 0;
@@ -67,10 +70,18 @@ namespace DesktopApp
 
             if (response.success == false)
             {
-                MyMessage.ShowError(response.message);
+                CarExpenseMessage.ShowError(response.message);
             }
 
             return response.success;
+        }
+
+        private void btnAddExpense_Click(object sender, EventArgs e)
+        {
+            if (addOtherExpense())
+            {
+                this.DialogResult = DialogResult.OK;
+            }
         }
     }
 }

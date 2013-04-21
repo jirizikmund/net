@@ -1,4 +1,4 @@
-﻿namespace DesktopApp
+﻿namespace zikmundj.DesktopApp
 {
     partial class AddNewCarForm
     {
@@ -43,21 +43,21 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(143, 32);
+            this.txtName.Location = new System.Drawing.Point(143, 40);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(100, 22);
             this.txtName.TabIndex = 1;
             // 
             // txtCost
             // 
-            this.txtCost.Location = new System.Drawing.Point(143, 60);
+            this.txtCost.Location = new System.Drawing.Point(143, 68);
             this.txtCost.Name = "txtCost";
             this.txtCost.Size = new System.Drawing.Size(100, 22);
             this.txtCost.TabIndex = 2;
             // 
             // txtYear
             // 
-            this.txtYear.Location = new System.Drawing.Point(143, 88);
+            this.txtYear.Location = new System.Drawing.Point(143, 96);
             this.txtYear.Name = "txtYear";
             this.txtYear.Size = new System.Drawing.Size(100, 22);
             this.txtYear.TabIndex = 3;
@@ -65,7 +65,7 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(37, 35);
+            this.lblName.Location = new System.Drawing.Point(37, 43);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(85, 17);
             this.lblName.TabIndex = 1;
@@ -74,7 +74,7 @@
             // lblCost
             // 
             this.lblCost.AutoSize = true;
-            this.lblCost.Location = new System.Drawing.Point(37, 63);
+            this.lblCost.Location = new System.Drawing.Point(37, 71);
             this.lblCost.Name = "lblCost";
             this.lblCost.Size = new System.Drawing.Size(36, 17);
             this.lblCost.TabIndex = 1;
@@ -83,7 +83,7 @@
             // lblBoughtYear
             // 
             this.lblBoughtYear.AutoSize = true;
-            this.lblBoughtYear.Location = new System.Drawing.Point(37, 91);
+            this.lblBoughtYear.Location = new System.Drawing.Point(37, 99);
             this.lblBoughtYear.Name = "lblBoughtYear";
             this.lblBoughtYear.Size = new System.Drawing.Size(85, 17);
             this.lblBoughtYear.TabIndex = 1;
@@ -134,6 +134,7 @@
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "AddNewCarForm";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add new car";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);

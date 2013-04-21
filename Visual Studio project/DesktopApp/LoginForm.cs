@@ -9,21 +9,42 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using zikmundj.CarExpenses;
 
-namespace DesktopApp
+namespace zikmundj.DesktopApp
 {
+    /// <summary>
+    /// Fomrulář pro přihlášení
+    /// </summary>
     public partial class LoginForm : Form
     {
+        /// <summary>Uživatel vrácený po přihlášení</summary>
         public User user { get; set; }
+
+        /// <summary>Zpráva o přihlášení</summary>
         public string message { get; set; }
 
         private CarExpensesApp app;
 
+        /// <summary>
+        /// Konstruktor okna
+        /// </summary>
+        /// <param name="app">Instance jádra aplikace</param>
         public LoginForm(CarExpensesApp app)
         {
             InitializeComponent();
             this.app = app;
             this.user = null;
             this.message = null;
+        }
+
+        /// <summary>
+        /// Validace údajů ve formuláři a přihlášení uživatele
+        /// </summary>
+        private bool login()
+        {
+            UserResponse response = app.login(txtLogin.Text, txtPassword.Text);
+            this.user = response.user;
+            this.message = response.message;
+            return response.success;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -37,14 +58,6 @@ namespace DesktopApp
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
-        }
-
-        private bool login()
-        {
-            UserResponse response = app.login(txtLogin.Text, txtPassword.Text);
-            this.user = response.user;
-            this.message = response.message;
-            return response.success;
-        }
+        }        
     }
 }

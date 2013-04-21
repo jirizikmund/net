@@ -11,9 +11,8 @@ using System.Windows.Forms;
 namespace zikmundj.CustomComponents
 {
     /// <summary>
-    /// Button with transparent color transition.
+    /// Tlačítko s průhledným barevným přechodem.
     /// </summary>
-
     public partial class ColorButton : Button
     {
         private Color m_colorLeft = SystemColors.Control;
@@ -21,31 +20,45 @@ namespace zikmundj.CustomComponents
         private int m_colorLeftTransparency = 50;
         private int m_colorRightTransparency = 50;
 
+        /// <summary>
+        /// Barva v levé části
+        /// </summary>
         public Color ColorLeft
         {
             get { return m_colorLeft; }
             set { m_colorLeft = value; Invalidate(); }
         }
 
+        /// <summary>
+        /// Barva v pravé části
+        /// </summary>
         public Color ColorRight
         {
             get { return m_colorRight; }
             set { m_colorRight = value; Invalidate(); }
         }
 
+        /// <summary>
+        /// Průhlednost barvy v levé části
+        /// </summary>
         public int ColorLeftTransparency
         {
             get { return m_colorLeftTransparency; }
             set { m_colorLeftTransparency = value; Invalidate(); }
         }
 
+        /// <summary>
+        /// Průhlednost barvy v pravé části
+        /// </summary>
         public int ColorRightTransparency
         {
             get { return m_colorRightTransparency; }
             set { m_colorRightTransparency = value; Invalidate(); }
         }
 
-
+        /// <summary>
+        /// Kontruktor tlačítka
+        /// </summary>
         public ColorButton()
         {
         }

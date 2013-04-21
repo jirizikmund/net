@@ -7,10 +7,11 @@
     <ProjectGuid>{F1A85A90-0D48-4E2C-AF65-FDCB8E23C20F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesktopApp</RootNamespace>
+    <RootNamespace>zikmundj.DesktopApp</RootNamespace>
     <AssemblyName>CarExpenses</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +24,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -36,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\CarExpenses.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,6 +46,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\CarExpenses.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>car-orange-icon-256.ico</ApplicationIcon>
@@ -177,13 +179,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\library\CoreLib.csproj">
-      <Project>{46445a88-cf1e-4ace-aaf9-b5b18ed56862}</Project>
-      <Name>CoreLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="car-orange-icon-256.ico" />
+    <None Include="icons\logo-4.png" />
+    <None Include="icons\logo2.png" />
+    <None Include="icons\logo1.png" />
+    <None Include="icons\register-16.png" />
+    <None Include="icons\login-16.png" />
+    <None Include="icons\vw-beetle-256.png" />
     <None Include="icons\logout-16_bw.png" />
     <None Include="icons\plus-16_bw.png" />
     <None Include="icons\table-export-16_bw.png" />

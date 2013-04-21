@@ -9,12 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using zikmundj.CarExpenses;
 
-namespace DesktopApp
+namespace zikmundj.DesktopApp
 {
+    /// <summary>
+    /// Úvodní okno aplikace
+    /// </summary>
     public partial class WelcomeForm : Form
     {
         private CarExpensesApp carExpensesApp;
 
+        /// <summary>
+        /// Konstruktor okna
+        /// </summary>
+        /// <param name="carExpensesApp">Instance jádra aplikace</param>
         public WelcomeForm(CarExpensesApp carExpensesApp)
         {
             InitializeComponent();
@@ -49,7 +56,7 @@ namespace DesktopApp
                 DialogResult dr = registerForm.ShowDialog();
                 if (dr == DialogResult.OK)
                 {
-                    
+                    CarExpenseMessage.ShowInfo(registerForm.message);
                 }
             }
         }
