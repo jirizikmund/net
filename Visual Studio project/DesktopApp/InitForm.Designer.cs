@@ -1,4 +1,4 @@
-﻿namespace DesktopApp
+﻿namespace zikmundj.DesktopApp
 {
     partial class InitForm
     {
@@ -33,12 +33,12 @@
             // 
             // lblInit
             // 
-            this.lblInit.AutoSize = true;
-            this.lblInit.Location = new System.Drawing.Point(67, 27);
+            this.lblInit.Location = new System.Drawing.Point(12, 9);
             this.lblInit.Name = "lblInit";
-            this.lblInit.Size = new System.Drawing.Size(165, 17);
+            this.lblInit.Size = new System.Drawing.Size(274, 55);
             this.lblInit.TabIndex = 0;
             this.lblInit.Text = "Initialization application...";
+            this.lblInit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InitForm
             // 
@@ -52,7 +52,6 @@
             this.Name = "InitForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

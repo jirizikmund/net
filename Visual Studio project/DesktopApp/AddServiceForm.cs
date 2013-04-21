@@ -9,13 +9,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using zikmundj.CarExpenses;
 
-namespace DesktopApp
+namespace zikmundj.DesktopApp
 {
+    /// <summary>
+    /// Fomrulář pro přidání opravy
+    /// </summary>
     public partial class AddServiceForm : Form
     {
         private CarExpensesApp carExpensesApp;
         private Car car;
 
+        /// <summary>
+        /// Konstruktor okna
+        /// </summary>
+        /// <param name="carExpensesApp">Instance jádra aplikace</param>
+        /// <param name="car">Auto, ke kterému se oprava přidává</param>
         public AddServiceForm(CarExpensesApp carExpensesApp, Car car)
         {
             InitializeComponent();
@@ -23,14 +31,9 @@ namespace DesktopApp
             this.car = car;
         }
 
-        private void btnAddService_Click(object sender, EventArgs e)
-        {
-            if (addService())
-            {
-                this.DialogResult = DialogResult.OK;
-            }
-        }
-
+        /// <summary>
+        /// Validace údajů ve formuláři a přidání opravy
+        /// </summary>
         private bool addService()
         {
             int km = 0;
@@ -64,14 +67,22 @@ namespace DesktopApp
                 return false;
             }
 
-            Response response = carExpensesApp.addService(car.id, km, cost, serviceTypeId,txtDescription.Text, date);
+            Response response = carExpensesApp.addService(car.id, km, cost, serviceTypeId, txtDescription.Text, date);
 
             if (response.success == false)
             {
-                MyMessage.ShowError(response.message);
+                CarExpenseMessage.ShowError(response.message);
             }
 
             return response.success;
+        }
+
+        private void btnAddService_Click(object sender, EventArgs e)
+        {
+            if (addService())
+            {
+                this.DialogResult = DialogResult.OK;
+            }
         }
     }
 }

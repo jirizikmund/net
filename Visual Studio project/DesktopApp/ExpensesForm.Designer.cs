@@ -1,4 +1,4 @@
-﻿namespace DesktopApp
+﻿namespace zikmundj.DesktopApp
 {
     partial class ExpensesForm
     {
@@ -98,7 +98,7 @@
             this.comboSelectCar.Location = new System.Drawing.Point(16, 22);
             this.comboSelectCar.Name = "comboSelectCar";
             this.comboSelectCar.Size = new System.Drawing.Size(121, 24);
-            this.comboSelectCar.TabIndex = 1;
+            this.comboSelectCar.TabIndex = 0;
             this.comboSelectCar.SelectionChangeCommitted += new System.EventHandler(this.comboSelectCar_SelectionChangeCommitted);
             // 
             // tableLayoutPanel1
@@ -153,11 +153,11 @@
             // btnAddGas
             // 
             this.btnAddGas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddGas.Image = global::DesktopApp.Properties.Resources.plus_16;
+            this.btnAddGas.Image = global::zikmundj.DesktopApp.Properties.Resources.plus_16;
             this.btnAddGas.Location = new System.Drawing.Point(0, 0);
             this.btnAddGas.Name = "btnAddGas";
             this.btnAddGas.Size = new System.Drawing.Size(24, 24);
-            this.btnAddGas.TabIndex = 2;
+            this.btnAddGas.TabIndex = 6;
             this.btnAddGas.Text = " ";
             this.toolTip.SetToolTip(this.btnAddGas, "Add new gas for current car");
             this.btnAddGas.UseVisualStyleBackColor = true;
@@ -465,11 +465,11 @@
             // btnAddService
             // 
             this.btnAddService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddService.Image = global::DesktopApp.Properties.Resources.plus_16;
+            this.btnAddService.Image = global::zikmundj.DesktopApp.Properties.Resources.plus_16;
             this.btnAddService.Location = new System.Drawing.Point(0, 0);
             this.btnAddService.Name = "btnAddService";
             this.btnAddService.Size = new System.Drawing.Size(24, 24);
-            this.btnAddService.TabIndex = 2;
+            this.btnAddService.TabIndex = 7;
             this.toolTip.SetToolTip(this.btnAddService, "Add new service for current car");
             this.btnAddService.UseVisualStyleBackColor = true;
             this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
@@ -509,11 +509,11 @@
             // btnAddOtherExpense
             // 
             this.btnAddOtherExpense.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddOtherExpense.Image = global::DesktopApp.Properties.Resources.plus_16;
+            this.btnAddOtherExpense.Image = global::zikmundj.DesktopApp.Properties.Resources.plus_16;
             this.btnAddOtherExpense.Location = new System.Drawing.Point(0, 0);
             this.btnAddOtherExpense.Name = "btnAddOtherExpense";
             this.btnAddOtherExpense.Size = new System.Drawing.Size(24, 24);
-            this.btnAddOtherExpense.TabIndex = 2;
+            this.btnAddOtherExpense.TabIndex = 8;
             this.toolTip.SetToolTip(this.btnAddOtherExpense, "Add other expense for current car");
             this.btnAddOtherExpense.UseVisualStyleBackColor = true;
             this.btnAddOtherExpense.Click += new System.EventHandler(this.btnAddOtherExpense_Click);
@@ -606,23 +606,23 @@
             // 
             // btnCopy
             // 
-            this.btnCopy.Image = global::DesktopApp.Properties.Resources.clipboard_16_bw;
+            this.btnCopy.Image = global::zikmundj.DesktopApp.Properties.Resources.clipboard_16_bw;
             this.btnCopy.Location = new System.Drawing.Point(158, 22);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(24, 24);
-            this.btnCopy.TabIndex = 10;
+            this.btnCopy.TabIndex = 5;
             this.toolTip.SetToolTip(this.btnCopy, "Copy info about selected car into clipboard");
             this.btnCopy.UseVisualStyleBackColor = true;
             this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // btnExport
             // 
-            this.btnExport.Image = global::DesktopApp.Properties.Resources.table_export_16_bw;
+            this.btnExport.Image = global::zikmundj.DesktopApp.Properties.Resources.table_export_16_bw;
             this.btnExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExport.Location = new System.Drawing.Point(16, 184);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(121, 26);
-            this.btnExport.TabIndex = 2;
+            this.btnExport.TabIndex = 1;
             this.btnExport.Text = " Export";
             this.toolTip.SetToolTip(this.btnExport, "Export all your user data into XML file");
             this.btnExport.UseVisualStyleBackColor = true;
@@ -630,7 +630,7 @@
             // 
             // btnAddNewCar
             // 
-            this.btnAddNewCar.Image = global::DesktopApp.Properties.Resources.plus_16_bw;
+            this.btnAddNewCar.Image = global::zikmundj.DesktopApp.Properties.Resources.plus_16_bw;
             this.btnAddNewCar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAddNewCar.Location = new System.Drawing.Point(16, 229);
             this.btnAddNewCar.Name = "btnAddNewCar";
@@ -643,12 +643,12 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.Image = global::DesktopApp.Properties.Resources.logout_16_bw;
+            this.btnLogout.Image = global::zikmundj.DesktopApp.Properties.Resources.logout_16_bw;
             this.btnLogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLogout.Location = new System.Drawing.Point(16, 274);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(121, 26);
-            this.btnLogout.TabIndex = 0;
+            this.btnLogout.TabIndex = 3;
             this.btnLogout.Text = "Logout";
             this.toolTip.SetToolTip(this.btnLogout, "Logout and go to welcome screen");
             this.btnLogout.UseVisualStyleBackColor = true;
@@ -660,9 +660,9 @@
             this.lblNoCarSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblNoCarSelected.Location = new System.Drawing.Point(158, 26);
             this.lblNoCarSelected.Name = "lblNoCarSelected";
-            this.lblNoCarSelected.Size = new System.Drawing.Size(453, 17);
+            this.lblNoCarSelected.Size = new System.Drawing.Size(471, 17);
             this.lblNoCarSelected.TabIndex = 11;
-            this.lblNoCarSelected.Text = "<<   No car is selected. Please select the car or add new car.";
+            this.lblNoCarSelected.Text = "<<   No car is selected. Please select the car or add a new one.";
             this.lblNoCarSelected.Visible = false;
             // 
             // btnExit
@@ -671,12 +671,12 @@
             this.btnExit.ColorLeftTransparency = 50;
             this.btnExit.ColorRight = System.Drawing.Color.OrangeRed;
             this.btnExit.ColorRightTransparency = 20;
-            this.btnExit.Image = global::DesktopApp.Properties.Resources.exit_16;
+            this.btnExit.Image = global::zikmundj.DesktopApp.Properties.Resources.exit_16;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExit.Location = new System.Drawing.Point(16, 319);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(121, 26);
-            this.btnExit.TabIndex = 12;
+            this.btnExit.TabIndex = 4;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click_1);

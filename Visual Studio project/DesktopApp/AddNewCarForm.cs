@@ -9,26 +9,28 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using zikmundj.CarExpenses;
 
-namespace DesktopApp
+namespace zikmundj.DesktopApp
 {
+    /// <summary>
+    /// Fomrulář pro přidání nového auta
+    /// </summary>
     public partial class AddNewCarForm : Form
     {
         private CarExpensesApp carExpensesApp;
 
+        /// <summary>
+        /// Konstruktor okna
+        /// </summary>
+        /// <param name="carExpensesApp">Instance jádra aplikace</param>
         public AddNewCarForm(CarExpensesApp carExpensesApp)
         {
             InitializeComponent();
             this.carExpensesApp = carExpensesApp;
         }
 
-        private void btnAddCar_Click(object sender, EventArgs e)
-        {
-            if (addNewCar())
-            {
-                this.DialogResult = DialogResult.OK;
-            }
-        }
-
+        /// <summary>
+        /// Validace údajů ve formuláři a přidání nového auta
+        /// </summary>
         private bool addNewCar()
         {
             int carModelId = 0;
@@ -59,10 +61,19 @@ namespace DesktopApp
 
             if (response.success == false)
             {
-                MyMessage.ShowError(response.message);
+                CarExpenseMessage.ShowError(response.message);
             }
 
             return response.success;
+        }
+
+
+        private void btnAddCar_Click(object sender, EventArgs e)
+        {
+            if (addNewCar())
+            {
+                this.DialogResult = DialogResult.OK;
+            }
         }
     }
 }
