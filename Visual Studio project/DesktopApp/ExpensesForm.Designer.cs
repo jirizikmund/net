@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -36,18 +37,19 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnAddGas = new System.Windows.Forms.Button();
             this.tableGas = new System.Windows.Forms.DataGridView();
             this.tableService = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblGasLiters = new System.Windows.Forms.Label();
             this.lblGasCost = new System.Windows.Forms.Label();
+            this.lblGasLiters_ = new System.Windows.Forms.Label();
             this.lblGasCost_ = new System.Windows.Forms.Label();
             this.lblGasCount_ = new System.Windows.Forms.Label();
-            this.lblGasLiters_ = new System.Windows.Forms.Label();
             this.lblGasCount = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblServiceCost = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblServiceCount_ = new System.Windows.Forms.Label();
             this.lblServiceCount = new System.Windows.Forms.Label();
             this.lblServiceCost_ = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -57,10 +59,11 @@
             this.lblOtherCost_ = new System.Windows.Forms.Label();
             this.tableOtherExpense = new System.Windows.Forms.DataGridView();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnAddService = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.btnAddOtherExpense = new System.Windows.Forms.Button();
             this.lblCarName = new System.Windows.Forms.Label();
             this.lblCarYear_ = new System.Windows.Forms.Label();
             this.lblCarPrice_ = new System.Windows.Forms.Label();
@@ -70,15 +73,13 @@
             this.lblCarCosts_ = new System.Windows.Forms.Label();
             this.lblCarTotal = new System.Windows.Forms.Label();
             this.lblCarCosts = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnCopy = new System.Windows.Forms.Button();
-            this.btnExportGas = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.btnAddNewCar = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.btnAddGas = new System.Windows.Forms.Button();
-            this.btnAddService = new System.Windows.Forms.Button();
-            this.btnAddOtherExpense = new System.Windows.Forms.Button();
+            this.lblNoCarSelected = new System.Windows.Forms.Label();
+            this.btnExit = new zikmundj.CustomComponents.ColorButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableGas)).BeginInit();
@@ -94,7 +95,7 @@
             // comboSelectCar
             // 
             this.comboSelectCar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSelectCar.Location = new System.Drawing.Point(16, 40);
+            this.comboSelectCar.Location = new System.Drawing.Point(16, 22);
             this.comboSelectCar.Name = "comboSelectCar";
             this.comboSelectCar.Size = new System.Drawing.Size(121, 24);
             this.comboSelectCar.TabIndex = 1;
@@ -149,6 +150,19 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "GAS";
             // 
+            // btnAddGas
+            // 
+            this.btnAddGas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddGas.Image = global::DesktopApp.Properties.Resources.plus_16;
+            this.btnAddGas.Location = new System.Drawing.Point(0, 0);
+            this.btnAddGas.Name = "btnAddGas";
+            this.btnAddGas.Size = new System.Drawing.Size(24, 24);
+            this.btnAddGas.TabIndex = 2;
+            this.btnAddGas.Text = " ";
+            this.toolTip.SetToolTip(this.btnAddGas, "Add new gas for current car");
+            this.btnAddGas.UseVisualStyleBackColor = true;
+            this.btnAddGas.Click += new System.EventHandler(this.btnAddGas_Click);
+            // 
             // tableGas
             // 
             this.tableGas.AllowUserToAddRows = false;
@@ -170,6 +184,7 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tableGas.DefaultCellStyle = dataGridViewCellStyle1;
+            this.tableGas.GridColor = System.Drawing.SystemColors.Control;
             this.tableGas.Location = new System.Drawing.Point(3, 78);
             this.tableGas.Name = "tableGas";
             this.tableGas.ReadOnly = true;
@@ -202,6 +217,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tableService.DefaultCellStyle = dataGridViewCellStyle2;
+            this.tableService.GridColor = System.Drawing.SystemColors.Control;
             this.tableService.Location = new System.Drawing.Point(274, 78);
             this.tableService.Name = "tableService";
             this.tableService.ReadOnly = true;
@@ -221,9 +237,9 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblGasLiters);
             this.panel1.Controls.Add(this.lblGasCost);
+            this.panel1.Controls.Add(this.lblGasLiters_);
             this.panel1.Controls.Add(this.lblGasCost_);
             this.panel1.Controls.Add(this.lblGasCount_);
-            this.panel1.Controls.Add(this.lblGasLiters_);
             this.panel1.Controls.Add(this.lblGasCount);
             this.panel1.Location = new System.Drawing.Point(3, 33);
             this.panel1.Name = "panel1";
@@ -235,7 +251,7 @@
             this.lblGasLiters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblGasLiters.AutoSize = true;
             this.lblGasLiters.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblGasLiters.Location = new System.Drawing.Point(196, 20);
+            this.lblGasLiters.Location = new System.Drawing.Point(202, 20);
             this.lblGasLiters.Name = "lblGasLiters";
             this.lblGasLiters.Size = new System.Drawing.Size(49, 17);
             this.lblGasLiters.TabIndex = 8;
@@ -251,6 +267,16 @@
             this.lblGasCost.Size = new System.Drawing.Size(78, 17);
             this.lblGasCost.TabIndex = 8;
             this.lblGasCost.Text = "132.234,-";
+            // 
+            // lblGasLiters_
+            // 
+            this.lblGasLiters_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblGasLiters_.AutoSize = true;
+            this.lblGasLiters_.Location = new System.Drawing.Point(202, 3);
+            this.lblGasLiters_.Name = "lblGasLiters_";
+            this.lblGasLiters_.Size = new System.Drawing.Size(47, 17);
+            this.lblGasLiters_.TabIndex = 7;
+            this.lblGasLiters_.Text = "Liters:";
             // 
             // lblGasCost_
             // 
@@ -270,16 +296,6 @@
             this.lblGasCount_.TabIndex = 7;
             this.lblGasCount_.Text = "Selected:";
             // 
-            // lblGasLiters_
-            // 
-            this.lblGasLiters_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblGasLiters_.AutoSize = true;
-            this.lblGasLiters_.Location = new System.Drawing.Point(198, 3);
-            this.lblGasLiters_.Name = "lblGasLiters_";
-            this.lblGasLiters_.Size = new System.Drawing.Size(47, 17);
-            this.lblGasLiters_.TabIndex = 7;
-            this.lblGasLiters_.Text = "Liters:";
-            // 
             // lblGasCount
             // 
             this.lblGasCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -298,7 +314,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.lblServiceCost);
-            this.panel2.Controls.Add(this.label11);
+            this.panel2.Controls.Add(this.lblServiceCount_);
             this.panel2.Controls.Add(this.lblServiceCount);
             this.panel2.Controls.Add(this.lblServiceCost_);
             this.panel2.Location = new System.Drawing.Point(274, 33);
@@ -317,14 +333,14 @@
             this.lblServiceCost.TabIndex = 8;
             this.lblServiceCost.Text = "132.234,-";
             // 
-            // label11
+            // lblServiceCount_
             // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label11.Location = new System.Drawing.Point(3, 3);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(70, 17);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "Selected:";
+            this.lblServiceCount_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblServiceCount_.Location = new System.Drawing.Point(3, 3);
+            this.lblServiceCount_.Name = "lblServiceCount_";
+            this.lblServiceCount_.Size = new System.Drawing.Size(70, 17);
+            this.lblServiceCount_.TabIndex = 7;
+            this.lblServiceCount_.Text = "Selected:";
             // 
             // lblServiceCount
             // 
@@ -422,6 +438,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tableOtherExpense.DefaultCellStyle = dataGridViewCellStyle3;
+            this.tableOtherExpense.GridColor = System.Drawing.SystemColors.Control;
             this.tableOtherExpense.Location = new System.Drawing.Point(545, 78);
             this.tableOtherExpense.Name = "tableOtherExpense";
             this.tableOtherExpense.ReadOnly = true;
@@ -444,6 +461,18 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(265, 24);
             this.panel5.TabIndex = 11;
+            // 
+            // btnAddService
+            // 
+            this.btnAddService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddService.Image = global::DesktopApp.Properties.Resources.plus_16;
+            this.btnAddService.Location = new System.Drawing.Point(0, 0);
+            this.btnAddService.Name = "btnAddService";
+            this.btnAddService.Size = new System.Drawing.Size(24, 24);
+            this.btnAddService.TabIndex = 2;
+            this.toolTip.SetToolTip(this.btnAddService, "Add new service for current car");
+            this.btnAddService.UseVisualStyleBackColor = true;
+            this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
             // 
             // label2
             // 
@@ -477,15 +506,28 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "OTHER";
             // 
+            // btnAddOtherExpense
+            // 
+            this.btnAddOtherExpense.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddOtherExpense.Image = global::DesktopApp.Properties.Resources.plus_16;
+            this.btnAddOtherExpense.Location = new System.Drawing.Point(0, 0);
+            this.btnAddOtherExpense.Name = "btnAddOtherExpense";
+            this.btnAddOtherExpense.Size = new System.Drawing.Size(24, 24);
+            this.btnAddOtherExpense.TabIndex = 2;
+            this.toolTip.SetToolTip(this.btnAddOtherExpense, "Add other expense for current car");
+            this.btnAddOtherExpense.UseVisualStyleBackColor = true;
+            this.btnAddOtherExpense.Click += new System.EventHandler(this.btnAddOtherExpense_Click);
+            // 
             // lblCarName
             // 
             this.lblCarName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCarName.AutoEllipsis = true;
+            this.lblCarName.AutoSize = true;
             this.lblCarName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblCarName.Location = new System.Drawing.Point(183, 20);
             this.lblCarName.Name = "lblCarName";
-            this.lblCarName.Size = new System.Drawing.Size(782, 29);
+            this.lblCarName.Size = new System.Drawing.Size(272, 29);
             this.lblCarName.TabIndex = 7;
             this.lblCarName.Text = "Škoda Octavia 1.9 TDI";
             // 
@@ -527,7 +569,7 @@
             // 
             // lblCarTotal_
             // 
-            this.lblCarTotal_.Location = new System.Drawing.Point(376, 66);
+            this.lblCarTotal_.Location = new System.Drawing.Point(433, 66);
             this.lblCarTotal_.Name = "lblCarTotal_";
             this.lblCarTotal_.Size = new System.Drawing.Size(70, 17);
             this.lblCarTotal_.TabIndex = 7;
@@ -535,7 +577,7 @@
             // 
             // lblCarCosts_
             // 
-            this.lblCarCosts_.Location = new System.Drawing.Point(376, 49);
+            this.lblCarCosts_.Location = new System.Drawing.Point(433, 49);
             this.lblCarCosts_.Name = "lblCarCosts_";
             this.lblCarCosts_.Size = new System.Drawing.Size(70, 17);
             this.lblCarCosts_.TabIndex = 7;
@@ -545,8 +587,8 @@
             // 
             this.lblCarTotal.AutoSize = true;
             this.lblCarTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblCarTotal.ForeColor = System.Drawing.Color.Crimson;
-            this.lblCarTotal.Location = new System.Drawing.Point(452, 66);
+            this.lblCarTotal.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lblCarTotal.Location = new System.Drawing.Point(509, 66);
             this.lblCarTotal.Name = "lblCarTotal";
             this.lblCarTotal.Size = new System.Drawing.Size(92, 17);
             this.lblCarTotal.TabIndex = 8;
@@ -556,122 +598,97 @@
             // 
             this.lblCarCosts.AutoSize = true;
             this.lblCarCosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblCarCosts.Location = new System.Drawing.Point(452, 49);
+            this.lblCarCosts.Location = new System.Drawing.Point(509, 49);
             this.lblCarCosts.Name = "lblCarCosts";
             this.lblCarCosts.Size = new System.Drawing.Size(78, 17);
             this.lblCarCosts.TabIndex = 8;
             this.lblCarCosts.Text = "135.500,-";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 17);
-            this.label4.TabIndex = 9;
-            this.label4.Text = " Select car:";
-            // 
             // btnCopy
             // 
-            this.btnCopy.Image = global::DesktopApp.Properties.Resources.clipboard_16;
+            this.btnCopy.Image = global::DesktopApp.Properties.Resources.clipboard_16_bw;
             this.btnCopy.Location = new System.Drawing.Point(158, 22);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(24, 24);
             this.btnCopy.TabIndex = 10;
+            this.toolTip.SetToolTip(this.btnCopy, "Copy info about selected car into clipboard");
             this.btnCopy.UseVisualStyleBackColor = true;
             this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
-            // btnExportGas
+            // btnExport
             // 
-            this.btnExportGas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExportGas.Image = global::DesktopApp.Properties.Resources.table_export_16;
-            this.btnExportGas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportGas.Location = new System.Drawing.Point(16, 143);
-            this.btnExportGas.Name = "btnExportGas";
-            this.btnExportGas.Size = new System.Drawing.Size(121, 24);
-            this.btnExportGas.TabIndex = 2;
-            this.btnExportGas.Text = " Export";
-            this.btnExportGas.UseVisualStyleBackColor = true;
-            this.btnExportGas.Click += new System.EventHandler(this.btnExportGas_Click);
+            this.btnExport.Image = global::DesktopApp.Properties.Resources.table_export_16_bw;
+            this.btnExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExport.Location = new System.Drawing.Point(16, 184);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(121, 26);
+            this.btnExport.TabIndex = 2;
+            this.btnExport.Text = " Export";
+            this.toolTip.SetToolTip(this.btnExport, "Export all your user data into XML file");
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExportGas_Click);
             // 
             // btnAddNewCar
             // 
-            this.btnAddNewCar.Image = global::DesktopApp.Properties.Resources.plus_16;
+            this.btnAddNewCar.Image = global::DesktopApp.Properties.Resources.plus_16_bw;
             this.btnAddNewCar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddNewCar.Location = new System.Drawing.Point(16, 184);
+            this.btnAddNewCar.Location = new System.Drawing.Point(16, 229);
             this.btnAddNewCar.Name = "btnAddNewCar";
-            this.btnAddNewCar.Size = new System.Drawing.Size(121, 24);
+            this.btnAddNewCar.Size = new System.Drawing.Size(121, 26);
             this.btnAddNewCar.TabIndex = 2;
-            this.btnAddNewCar.Text = "Add new car";
+            this.btnAddNewCar.Text = "New car";
+            this.toolTip.SetToolTip(this.btnAddNewCar, "Add new car");
             this.btnAddNewCar.UseVisualStyleBackColor = true;
             this.btnAddNewCar.Click += new System.EventHandler(this.btnAddNewCar_Click);
             // 
             // btnLogout
             // 
-            this.btnLogout.Image = global::DesktopApp.Properties.Resources.logout_16;
+            this.btnLogout.Image = global::DesktopApp.Properties.Resources.logout_16_bw;
             this.btnLogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogout.Location = new System.Drawing.Point(16, 228);
+            this.btnLogout.Location = new System.Drawing.Point(16, 274);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(121, 23);
+            this.btnLogout.Size = new System.Drawing.Size(121, 26);
             this.btnLogout.TabIndex = 0;
             this.btnLogout.Text = "Logout";
+            this.toolTip.SetToolTip(this.btnLogout, "Logout and go to welcome screen");
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
+            // lblNoCarSelected
+            // 
+            this.lblNoCarSelected.AutoSize = true;
+            this.lblNoCarSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblNoCarSelected.Location = new System.Drawing.Point(158, 26);
+            this.lblNoCarSelected.Name = "lblNoCarSelected";
+            this.lblNoCarSelected.Size = new System.Drawing.Size(453, 17);
+            this.lblNoCarSelected.TabIndex = 11;
+            this.lblNoCarSelected.Text = "<<   No car is selected. Please select the car or add new car.";
+            this.lblNoCarSelected.Visible = false;
+            // 
             // btnExit
             // 
+            this.btnExit.ColorLeft = System.Drawing.SystemColors.Control;
+            this.btnExit.ColorLeftTransparency = 50;
+            this.btnExit.ColorRight = System.Drawing.Color.OrangeRed;
+            this.btnExit.ColorRightTransparency = 20;
             this.btnExit.Image = global::DesktopApp.Properties.Resources.exit_16;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExit.Location = new System.Drawing.Point(16, 271);
+            this.btnExit.Location = new System.Drawing.Point(16, 319);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(121, 23);
-            this.btnExit.TabIndex = 0;
+            this.btnExit.Size = new System.Drawing.Size(121, 26);
+            this.btnExit.TabIndex = 12;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // btnAddGas
-            // 
-            this.btnAddGas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddGas.Image = global::DesktopApp.Properties.Resources.plus_16;
-            this.btnAddGas.Location = new System.Drawing.Point(0, 0);
-            this.btnAddGas.Name = "btnAddGas";
-            this.btnAddGas.Size = new System.Drawing.Size(24, 24);
-            this.btnAddGas.TabIndex = 2;
-            this.btnAddGas.Text = " ";
-            this.btnAddGas.UseVisualStyleBackColor = true;
-            this.btnAddGas.Click += new System.EventHandler(this.btnAddGas_Click);
-            // 
-            // btnAddService
-            // 
-            this.btnAddService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddService.Image = global::DesktopApp.Properties.Resources.plus_16;
-            this.btnAddService.Location = new System.Drawing.Point(0, 0);
-            this.btnAddService.Name = "btnAddService";
-            this.btnAddService.Size = new System.Drawing.Size(24, 24);
-            this.btnAddService.TabIndex = 2;
-            this.btnAddService.UseVisualStyleBackColor = true;
-            this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
-            // 
-            // btnAddOtherExpense
-            // 
-            this.btnAddOtherExpense.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddOtherExpense.Image = global::DesktopApp.Properties.Resources.plus_16;
-            this.btnAddOtherExpense.Location = new System.Drawing.Point(0, 0);
-            this.btnAddOtherExpense.Name = "btnAddOtherExpense";
-            this.btnAddOtherExpense.Size = new System.Drawing.Size(24, 24);
-            this.btnAddOtherExpense.TabIndex = 2;
-            this.btnAddOtherExpense.UseVisualStyleBackColor = true;
-            this.btnAddOtherExpense.Click += new System.EventHandler(this.btnAddOtherExpense_Click);
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click_1);
             // 
             // ExpensesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 405);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnCopy);
-            this.Controls.Add(this.btnExportGas);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.lblCarCosts);
             this.Controls.Add(this.lblCarTotal);
             this.Controls.Add(this.lblCarPrice);
@@ -684,8 +701,8 @@
             this.Controls.Add(this.comboSelectCar);
             this.Controls.Add(this.btnAddNewCar);
             this.Controls.Add(this.btnLogout);
-            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.lblNoCarSelected);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1000, 450);
             this.Name = "ExpensesForm";
@@ -718,11 +735,9 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.ComboBox comboSelectCar;
         private System.Windows.Forms.Button btnAddNewCar;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnAddService;
         private System.Windows.Forms.Button btnAddGas;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.HelpProvider helpProvider1;
         private System.Windows.Forms.DataGridView tableGas;
         private System.Windows.Forms.DataGridView tableService;
         private System.Windows.Forms.Label lblCarName;
@@ -739,7 +754,7 @@
         private System.Windows.Forms.Label lblGasCount_;
         private System.Windows.Forms.Label lblGasCount;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblServiceCount_;
         private System.Windows.Forms.Label lblServiceCount;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblCarTotal_;
@@ -756,11 +771,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button btnCopy;
-        private System.Windows.Forms.Button btnExportGas;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Label lblNoCarSelected;
+        private zikmundj.CustomComponents.ColorButton btnExit;
     }
 }

@@ -86,6 +86,12 @@
     <Compile Include="AddServiceForm.Designer.cs">
       <DependentUpon>AddServiceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ColorButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ColorButton.Designer.cs">
+      <DependentUpon>ColorButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExpensesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="car-orange-icon-256.ico" />
+    <None Include="icons\logout-16_bw.png" />
+    <None Include="icons\plus-16_bw.png" />
+    <None Include="icons\table-export-16_bw.png" />
+    <None Include="icons\clipboard-16_bw.png" />
+    <None Include="icons\exit-16.png" />
+    <None Include="icons\logout-16.png" />
     <None Include="icons\table-export-16.png" />
     <None Include="icons\xml-export-16.png" />
     <None Include="icons\clipboard-16.png" />

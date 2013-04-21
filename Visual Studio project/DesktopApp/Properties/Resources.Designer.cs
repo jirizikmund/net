@@ -73,6 +73,16 @@ namespace DesktopApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clipboard_16_bw {
+            get {
+                object obj = ResourceManager.GetObject("clipboard-16_bw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap exit_16 {
             get {
                 object obj = ResourceManager.GetObject("exit-16", resourceCulture);
@@ -86,6 +96,16 @@ namespace DesktopApp.Properties {
         internal static System.Drawing.Bitmap logout_16 {
             get {
                 object obj = ResourceManager.GetObject("logout-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logout_16_bw {
+            get {
+                object obj = ResourceManager.GetObject("logout-16_bw", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,6 +133,16 @@ namespace DesktopApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap plus_16_bw {
+            get {
+                object obj = ResourceManager.GetObject("plus-16_bw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap plus_24 {
             get {
                 object obj = ResourceManager.GetObject("plus-24", resourceCulture);
@@ -126,6 +156,16 @@ namespace DesktopApp.Properties {
         internal static System.Drawing.Bitmap table_export_16 {
             get {
                 object obj = ResourceManager.GetObject("table-export-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap table_export_16_bw {
+            get {
+                object obj = ResourceManager.GetObject("table-export-16_bw", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

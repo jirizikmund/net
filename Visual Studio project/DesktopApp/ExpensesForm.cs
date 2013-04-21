@@ -22,7 +22,8 @@ namespace DesktopApp
         private int totalOtherCost = 0;
 
         //public const String currencyFormat = "#,##0.00 $;#,##0.00'-  $';0 $";
-        public const String currencyFormat = "N2";
+        //public const String currencyFormat = "N2";
+        public const String currencyFormat = "C";
 
         public ExpensesForm(CarExpensesApp carExpensesApp, User user)
         {
@@ -44,11 +45,7 @@ namespace DesktopApp
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you really want to exit Car Expenses?", "Exit Car Expenses", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                carExpensesApp.logout();
-                Application.Exit();
-            }
+            
         }
 
         private void ExpensesForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -68,6 +65,7 @@ namespace DesktopApp
                     comboSelectCar.Items.Add(car);
                 }
             }
+            btnExport.Enabled = carResponse.carList.Count > 1;
         }
 
         private void disableElements()
@@ -78,34 +76,62 @@ namespace DesktopApp
             lblCarCosts.Text = "";
             lblCarTotal.Text = "";
 
+            lblCarName.Visible = false;
+            lblCarYear_.Visible = false;
+            lblCarPrice_.Visible = false;
+            lblCarCosts_.Visible = false;
+            lblCarTotal_.Visible = false;
+
+            lblNoCarSelected.Visible = true;
+
+            lblGasCount_.Visible = false;
+            lblGasCost_.Visible = false;
+            lblGasLiters_.Visible = false;
+            lblServiceCount_.Visible = false;
+            lblServiceCost_.Visible = false;
+            lblOtherCount_.Visible = false;
+            lblOtherCost_.Visible = false;
+
             lblGasCount.Text = "";
             lblGasCost.Text = "";
             lblGasLiters.Text = "";
-
             lblServiceCount.Text = "";
             lblServiceCost.Text = "";
-
             lblOtherCount.Text = "";
             lblOtherCost.Text = "";
 
-            btnAddGas.Enabled = false;
-            btnAddService.Enabled = false;
-            btnAddOtherExpense.Enabled = false;
-            btnCopy.Enabled = false;
+            btnAddGas.Visible = false;
+            btnAddService.Visible = false;
+            btnAddOtherExpense.Visible = false;
+            btnCopy.Visible = false;
 
             tableGas.DataSource = null;
             tableService.DataSource = null;
             tableOtherExpense.DataSource = null;
-
-            comboSelectCar.SelectedText = String.Empty;
         }
 
         private void enableElements()
         {
-            btnAddGas.Enabled = true;
-            btnAddService.Enabled = true;
-            btnAddOtherExpense.Enabled = true;
-            btnCopy.Enabled = true;
+            lblNoCarSelected.Visible = false;
+
+            lblCarName.Visible = true;
+            lblCarYear_.Visible = true;
+            lblCarPrice_.Visible = true;
+            lblCarCosts_.Visible = true;
+            lblCarTotal_.Visible = true;
+
+            lblGasCount_.Visible = true;
+            lblGasCost_.Visible = true;
+            lblGasLiters_.Visible = true;
+            lblServiceCount_.Visible = true;
+            lblServiceCost_.Visible = true;
+            lblOtherCount_.Visible = true;
+            lblOtherCost_.Visible = true;
+
+            btnAddGas.Visible = true;
+            btnAddService.Visible = true;
+            btnAddOtherExpense.Visible = true;
+            btnCopy.Visible = true;
         }
 
         private void reloadCarInfo()
@@ -358,7 +384,7 @@ namespace DesktopApp
             if (tableGas.AreAllCellsSelected(false))
                 lblGasCount.Text = "ALL";
             else
-                lblGasCount.Text = selectedRowCount.ToString() + " / " + tableGas.RowCount;
+                lblGasCount.Text = selectedRowCount.ToString() + " of " + tableGas.RowCount;
 
             int totalCost = 0;
             int totalLiters = 0;
@@ -401,7 +427,7 @@ namespace DesktopApp
             if (tableService.AreAllCellsSelected(false))
                 lblServiceCount.Text = "ALL";
             else
-                lblServiceCount.Text = selectedRowCount.ToString() + " / " + tableService.RowCount;
+                lblServiceCount.Text = selectedRowCount.ToString() + " of " + tableService.RowCount;
 
             int totalCost = 0;
             for (int i = 0; i < selectedRowCount; i++)
@@ -422,7 +448,7 @@ namespace DesktopApp
             if (tableOtherExpense.AreAllCellsSelected(false))
                 lblOtherCount.Text = "ALL";
             else
-                lblOtherCount.Text = selectedRowCount.ToString() + " / " + tableOtherExpense.RowCount;
+                lblOtherCount.Text = selectedRowCount.ToString() + " of " + tableOtherExpense.RowCount;
 
             int totalCost = 0;
             for (int i = 0; i < selectedRowCount; i++)
@@ -455,7 +481,17 @@ namespace DesktopApp
 
         private void btnExportGas_Click(object sender, EventArgs e)
         {
-            XmlExport.exportToXml(carExpensesApp);
+            string fileName = XmlExport.exportToXml(carExpensesApp);
+            MyMessage.ShowInfo("Your export was saved to file " + fileName);
+        }
+
+        private void btnExit_Click_1(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you really want to exit Car Expenses?", "Exit Car Expenses", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                carExpensesApp.logout();
+                Application.Exit();
+            }
         }
     }
 }

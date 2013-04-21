@@ -10,12 +10,13 @@ namespace DesktopApp
 {
     class XmlExport
     {
-        public static void exportToXml(CarExpensesApp carExpensesApp)
+        public static string exportToXml(CarExpensesApp carExpensesApp)
         {
             XmlWriterSettings setting = new XmlWriterSettings();
             setting.Indent = true;
 
-            XmlWriter writer = XmlWriter.Create("export_user_" + carExpensesApp.getUser().id + ".xml", setting); 
+            string fileName = "export_user_" + carExpensesApp.getUser().id + ".xml";
+            XmlWriter writer = XmlWriter.Create(fileName, setting); 
             
             writer.WriteStartDocument();
                 writer.WriteStartElement("carExpensesExport");
@@ -76,6 +77,8 @@ namespace DesktopApp
                 writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Close();
+
+            return fileName;
         }
     }
 }
